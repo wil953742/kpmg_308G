@@ -13,7 +13,7 @@ const MainContent = styled.div`
   height: 100%;
 
   h1 {
-    margin-top: 22.7vh;
+    margin-top: 15vh;
     font-size: 75px;
     font-weight: 800;
     color: #505050;
@@ -22,7 +22,7 @@ const MainContent = styled.div`
 
   h2 {
     font-size: 47px;
-    margin-top: 20.27vh;
+    margin-top: 13vh;
     color: black;
     font-weight: 400;
     margin-bottom: 6.85vh;
