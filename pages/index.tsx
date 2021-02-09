@@ -2,6 +2,7 @@ import Head from "next/head";
 import Layout from "../components/Layout";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 const MainContent = styled.div`
   display: flex;
@@ -142,14 +143,20 @@ const Home = () => {
       <Layout>
         <MainContent>
           {rotation ? (
-            <h1>
-              SIZE
-              <span style={{ color: "#444BDF" }}>Y</span>
-              <span style={{ color: "#3F8AD4" }}>O</span>
-              <span style={{ color: "#5378C6" }}>U</span>
-              <span style={{ color: "#444BDF" }}>R</span>
-              SELF
-            </h1>
+            <motion.div
+              initial={{ scale: 0.7 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              <h1>
+                SIZE
+                <span style={{ color: "#444BDF" }}>Y</span>
+                <span style={{ color: "#3F8AD4" }}>O</span>
+                <span style={{ color: "#5378C6" }}>U</span>
+                <span style={{ color: "#444BDF" }}>R</span>
+                SELF
+              </h1>
+            </motion.div>
           ) : (
             <h2>
               308G와 함께,

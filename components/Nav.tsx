@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Link from "next/link";
 import { useState } from "react";
+import { Login } from "../components/Login";
 
 const Navi = styled.nav`
   display: flex;
@@ -92,78 +93,95 @@ const Navi = styled.nav`
 `;
 
 export const Nav = () => {
-  const [lang, setLang] = useState<string>("KOR");
+  const [lang, setLang] = useState<string>("ko-KR");
+  const [toggleSignIn, setToggleSignIn] = useState<boolean>(false);
+
   return (
-    <Navi>
-      <div className="left">
-        <Link href="/">
-          <a style={{ height: "100%" }}>
-            <img src="/images/logo.svg" alt="logo" width="88px" height="15px" />
-          </a>
-        </Link>
-        {lang === "KOR" && (
-          <div id="dropdown">
-            <div id="main">
-              <p>한국어 / KR &nbsp;</p>
+    <>
+      {toggleSignIn && <Login setToggleSignIn={setToggleSignIn} />}
+      <Navi>
+        <div className="left">
+          <Link href="/">
+            <a style={{ height: "100%" }}>
               <img
-                src="/images/down.svg"
-                alt="down"
-                width="7.79px"
-                height="3.9px"
-                style={{ marginLeft: "0px" }}
+                src="/images/logo.svg"
+                alt="logo"
+                width="88px"
+                height="15px"
               />
+            </a>
+          </Link>
+          {lang === "ko-KR" && (
+            <div id="dropdown">
+              <div id="main">
+                <p>한국어 / KR &nbsp;</p>
+                <img
+                  src="/images/down.svg"
+                  alt="down"
+                  width="7.79px"
+                  height="3.9px"
+                  style={{ marginLeft: "0px" }}
+                />
+              </div>
+              <div
+                id="dropdown-content"
+                onClick={() => {
+                  setLang("ENG");
+                }}
+              >
+                <p>ENGLISH / EN &nbsp;</p>
+              </div>
             </div>
-            <div
-              id="dropdown-content"
-              onClick={() => {
-                setLang("ENG");
-              }}
-            >
-              <p>ENGLISH / EN &nbsp;</p>
+          )}
+          {lang !== "ko-KR" && (
+            <div id="dropdown">
+              <div id="main">
+                <p>ENGLISH / EN &nbsp;</p>
+                <img
+                  src="/images/down.svg"
+                  alt="down"
+                  width="7.79px"
+                  height="3.9px"
+                  style={{ marginLeft: "0px" }}
+                />
+              </div>
+              <div
+                id="dropdown-content"
+                onClick={() => {
+                  setLang("KOR");
+                }}
+              >
+                <p>한국어 / KR &nbsp;</p>
+              </div>
             </div>
-          </div>
-        )}
-        {lang === "ENG" && (
-          <div id="dropdown">
-            <div id="main">
-              <p>ENGLISH / EN &nbsp;</p>
-              <img
-                src="/images/down.svg"
-                alt="down"
-                width="7.79px"
-                height="3.9px"
-                style={{ marginLeft: "0px" }}
-              />
-            </div>
-            <div
-              id="dropdown-content"
-              onClick={() => {
-                setLang("KOR");
-              }}
-            >
-              <p>한국어 / KR &nbsp;</p>
-            </div>
-          </div>
-        )}
-      </div>
-      <div className="right">
-        <div>
-          <img src="/images/login.svg" alt="login" />
-          <p>로그인</p>
+          )}
         </div>
-        <div>
-          <img src="/images/signup.svg" alt="login" />
-          <p>회원가입</p>
+        <div className="right">
+          <div
+            style={{ cursor: "pointer" }}
+            onClick={() => setToggleSignIn(true)}
+          >
+            <img src="/images/login.svg" alt="login" />
+            <p>로그인</p>
+          </div>
+          <div>
+            <Link href="/signup">
+              <a>
+                <img src="/images/signup.svg" alt="login" />
+                <p>회원가입</p>
+              </a>
+            </Link>
+          </div>
+          <Link href="/my">
+            <a>
+              <div>
+                <img src="/images/mypage.svg" alt="login" />
+                <p>마이페이지</p>
+              </div>
+            </a>
+          </Link>
         </div>
-        <Link href="/my">
-          <a>
-            <div>
-              <img src="/images/mypage.svg" alt="login" />
-              <p>마이페이지</p>
-            </div>
-          </a>
-        </Link>
-      </div>
-    </Navi>
+      </Navi>
+    </>
   );
 };

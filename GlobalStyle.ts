@@ -13,6 +13,16 @@ const GlobalStyle = createGlobalStyle`
 
     * {
         margin: 0;
+        -moz-box-sizing: border-box; 
+        -webkit-box-sizing: border-box; 
+        box-sizing: border-box; 
+    }
+
+    a:focus,
+    a:visited,
+    button:focus,
+    input:focus {
+        outline: none;
     }
 `;
 
