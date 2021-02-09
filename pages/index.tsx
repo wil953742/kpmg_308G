@@ -9,6 +9,8 @@ const MainContent = styled.div`
   flex-direction: column;
   align-items: center;
   text-align: center;
+  position: relative;
+  height: 100%;
 
   h1 {
     margin-top: 22.7vh;
@@ -65,6 +67,33 @@ const MainContent = styled.div`
   }
 `;
 
+const Images = styled.div`
+  #wave {
+    position: absolute;
+    width: 100%;
+    bottom: 10px;
+    z-index: 5;
+  }
+
+  #bag {
+    position: absolute;
+    width: 5.72%;
+    height: ((109.9 / 78.15) * 5.72%);
+    bottom: 60px;
+    right: 11%;
+    z-index: 15;
+  }
+
+  #main {
+    position: absolute;
+    width: 14.73%;
+    height: ((282.85 * 386.19) * 14.73%);
+    left: 10%;
+    bottom: 60px;
+    z-index: 15;
+  }
+`;
+
 const Footer = styled.footer`
   width: 100%;
   position: absolute;
@@ -73,6 +102,7 @@ const Footer = styled.footer`
   justify-content: space-between;
   background-color: #0f223e;
   color: white;
+  z-index: 10;
 
   h2 {
     font-size: 13px;
@@ -144,6 +174,11 @@ const Home = () => {
             </div>
           </div>
         </MainContent>
+        <Images>
+          <img id="main" src="/images/main.png" alt="main_illustrator" />
+          <img id="wave" src="/images/wave.png" alt="wave" />
+          <img id="bag" src="/images/bag.png" alt="bag" />
+        </Images>
         <Footer>
           <div style={{ margin: "18px 0 18px 40px" }}>
             <h2>Sizeyourself 가 처음이신가요?</h2>
