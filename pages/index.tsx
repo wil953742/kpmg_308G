@@ -2,6 +2,7 @@ import Head from "next/head";
 import Layout from "../components/Layout";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 const MainContent = styled.div`
   display: flex;
@@ -9,34 +10,31 @@ const MainContent = styled.div`
   flex-direction: column;
   align-items: center;
   text-align: center;
-
+  position: relative;
+  height: 100%;
   h1 {
-    margin-top: 22.7vh;
+    margin-top: 15vh;
     font-size: 75px;
     font-weight: 800;
     color: #505050;
     margin-bottom: 9.63vh;
   }
-
   h2 {
     font-size: 47px;
-    margin-top: 20.27vh;
+    margin-top: 13vh;
     color: black;
     font-weight: 400;
     margin-bottom: 6.85vh;
   }
-
   #h2-span {
     font-size: 50px;
     font-weight: bold;
   }
-
   #search-bar {
     display: flex;
     width: 100%;
     align-items: center;
     justify-content: center;
-
     .search {
       width: 38%;
       margin-right: 20px;
@@ -46,11 +44,9 @@ const MainContent = styled.div`
       height: 64px;
       padding: 0 31px;
     }
-
     .search:focus {
       outline: none;
     }
-
     #box {
       background-color: #444bdf;
       box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.47);
@@ -65,6 +61,31 @@ const MainContent = styled.div`
   }
 `;
 
+const Images = styled.div`
+  #wave {
+    position: absolute;
+    width: 100%;
+    bottom: 10px;
+    z-index: 5;
+  }
+  #bag {
+    position: absolute;
+    width: 5.72%;
+    height: ((109.9 / 78.15) * 5.72%);
+    bottom: 60px;
+    right: 11%;
+    z-index: 15;
+  }
+  #main {
+    position: absolute;
+    width: 14.73%;
+    height: ((282.85 * 386.19) * 14.73%);
+    left: 10%;
+    bottom: 60px;
+    z-index: 15;
+  }
+`;
+
 const Footer = styled.footer`
   width: 100%;
   position: absolute;
@@ -73,18 +94,16 @@ const Footer = styled.footer`
   justify-content: space-between;
   background-color: #0f223e;
   color: white;
-
+  z-index: 10;
   h2 {
     font-size: 13px;
     font-weight: bold;
   }
-
   p {
     font-size: 11px;
     font-weight: 300;
     margin-top: 7px;
   }
-
   #detail {
     color: #999999 !important;
     background: white;
@@ -112,14 +131,20 @@ const Home = () => {
       <Layout>
         <MainContent>
           {rotation ? (
-            <h1>
-              SIZE
-              <span style={{ color: "#444BDF" }}>Y</span>
-              <span style={{ color: "#3F8AD4" }}>O</span>
-              <span style={{ color: "#5378C6" }}>U</span>
-              <span style={{ color: "#444BDF" }}>R</span>
-              SELF
-            </h1>
+            <motion.div
+              initial={{ scale: 0.7 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              <h1>
+                SIZE
+                <span style={{ color: "#444BDF" }}>Y</span>
+                <span style={{ color: "#3F8AD4" }}>O</span>
+                <span style={{ color: "#5378C6" }}>U</span>
+                <span style={{ color: "#444BDF" }}>R</span>
+                SELF
+              </h1>
+            </motion.div>
           ) : (
             <h2>
               308G와 함께,
@@ -144,6 +169,11 @@ const Home = () => {
             </div>
           </div>
         </MainContent>
+        <Images>
+          <img id="main" src="/images/main.png" alt="main_illustrator" />
+          <img id="wave" src="/images/wave.png" alt="wave" />
+          <img id="bag" src="/images/bag.png" alt="bag" />
+        </Images>
         <Footer>
           <div style={{ margin: "18px 0 18px 40px" }}>
             <h2>Sizeyourself 가 처음이신가요?</h2>
