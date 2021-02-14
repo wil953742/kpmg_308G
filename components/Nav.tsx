@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Navi = styled.nav`
   display: flex;
-  height: 16px;
+  height: 100vh * 21/1080;
+  height: 100%;
   width: 68.75%;
   margin: 7.22vh 15.625% 0 15.625%;
   justify-content: space-between;
@@ -13,6 +14,11 @@ const Navi = styled.nav`
   .left {
     img {
       margin-left: 20px;
+    }
+    a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 
@@ -71,6 +77,10 @@ const Navi = styled.nav`
       color: #505050;
       font-size: 14px;
     }
+
+    #dropdown-contet:hover {
+      display: flex;
+    }
   }
 
   #dropdown:hover {
@@ -93,8 +103,13 @@ const Navi = styled.nav`
 
 export const Nav = () => {
   const [lang, setLang] = useState<string>("KOR");
+
+  useEffect(() => {
+    const item = document.getElementById("temp");
+    console.log(item);
+  }, []);
   return (
-    <Navi>
+    <Navi id="temp">
       <div className="left">
         <Link href="/">
           <a style={{ height: "100%" }}>
