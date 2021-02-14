@@ -11,7 +11,7 @@ const MainContent = styled.div`
   align-items: center;
   text-align: center;
   position: relative;
-  height: 100%;
+
   h1 {
     margin-top: 15vh;
     font-size: 75px;
@@ -95,21 +95,26 @@ const Footer = styled.footer`
   background-color: #0f223e;
   color: white;
   z-index: 10;
+  align-items: center;
+
   h2 {
     font-size: 13px;
     font-weight: bold;
   }
+
   p {
     font-size: 11px;
     font-weight: 300;
     margin-top: 7px;
   }
+
   #detail {
     color: #999999 !important;
     background: white;
     border-radius: 22px;
     padding: 6px 12px;
     font-size: 10px;
+    height: 33%;
   }
 `;
 
@@ -175,12 +180,12 @@ const Home = () => {
           <img id="bag" src="/images/bag.png" alt="bag" />
         </Images>
         <Footer>
-          <div style={{ margin: "18px 0 18px 40px" }}>
+          <div style={{ margin: "1.67vh 0 1.67vh 2.08vw" }}>
             <h2>Sizeyourself 가 처음이신가요?</h2>
             <p>Sizeyourself의 맞춤형 온라인 피팅 서비스에 대해 알아보세요.</p>
           </div>
-          <div id="detail" style={{ margin: "23px 43px 25px 0" }}>
-            자세히 보기
+          <div id="detail" style={{ marginRight: "2.24vw" }}>
+            <p>자세히 보기</p>
           </div>
         </Footer>
       </Layout>

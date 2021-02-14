@@ -20,9 +20,15 @@ const GlobalStyle = createGlobalStyle`
 
     a:focus,
     a:visited,
+    a:link,
     button:focus,
     input:focus {
         outline: none;
+        text-decoration: none;
+    }
+
+    ::placeholder {
+        color: #999999;
     }
 `;
 

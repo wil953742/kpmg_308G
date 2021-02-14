@@ -31,7 +31,7 @@ const LoginModal = styled(motion.div)`
     background-color: white;
     border-radius: 30px;
     margin-bottom: 20px;
-    padding: 54px 72px;
+    padding: 5vh 3.75vw;
 
     h1 {
       color: #5378c6;
@@ -41,36 +41,36 @@ const LoginModal = styled(motion.div)`
     }
 
     h2 {
-      margin-top: 20px;
+      margin-top: 1.85vh;
       font-size: 30px;
       font-weight: 600;
       color: #767676;
-      margin-bottom: 50px;
+      margin-bottom: 4.63vh;
     }
 
     #input-box {
       input {
-        padding-left: 17px;
+        padding-left: 1.5vw;
         width: 100%;
-        height: 63px;
+        height: 5.83vh;
         border: 1px solid #999999;
-        font-size: 20px;
+        font-size: 15px;
         font-weight: 500;
-        margin-bottom: 29px;
+        margin-bottom: 2.69vh;
         border-radius: 17px;
       }
     }
 
     #login-btn {
       width: 100%;
-      height: 63px;
+      height: 5.83vh;
       color: white;
       background-color: #5378c6;
       font-size: 20px;
       font-weight: 500;
       border-radius: 20px;
       border: none;
-      margin-bottom: 21px;
+      margin-bottom: 1.94vh;
       cursor: pointer;
     }
 
@@ -96,7 +96,7 @@ const LoginModal = styled(motion.div)`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 49px;
+    margin-top: 4.54vh;
 
     hr {
       width: 20%;
@@ -112,10 +112,12 @@ const LoginModal = styled(motion.div)`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 1.85vh;
 
     img {
       cursor: pointer;
+      width: 6.94vh;
+      height: 6.94vh;
     }
   }
 
@@ -125,7 +127,7 @@ const LoginModal = styled(motion.div)`
     justify-content: center;
     font-size: 14px;
     color: #191919;
-    margin-top: 30px;
+    margin-top: 6.95vh;
   }
 `;
 
@@ -154,6 +156,9 @@ export const Login = ({ setToggleSignIn }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
+      onDoubleClick={() => {
+        setToggleSignIn(false);
+      }}
     >
       <div style={{ position: "relative" }}>
         <img
