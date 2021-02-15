@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
-import Layout from "../components/Layout";
+import Layout from "../../components/Layout";
 import styled from "styled-components";
 
 const MainContent = styled.div`
@@ -150,7 +150,7 @@ export default function Signup() {
                 <p>이메일로 회원가입</p>
                 <hr />
               </div>
-              <LoginButton style={{ color: "white" }}>
+              <LoginButton style={{ color: "white", marginTop: "3.88vh" }}>
                 <p>회원가입</p>
               </LoginButton>
             </Content>
