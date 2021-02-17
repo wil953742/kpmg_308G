@@ -13,9 +13,6 @@ const Navi = styled.nav`
   align-items: center;
 
   .left {
-    img {
-      margin-left: 20px;
-    }
     a {
       display: flex;
       justify-content: center;
@@ -25,8 +22,9 @@ const Navi = styled.nav`
 
   .right {
     div {
-      margin-right: 20px;
+      margin-left: 20px;
     }
+
     img {
       margin-right: 6px;
     }

@@ -22,7 +22,8 @@ const GlobalStyle = createGlobalStyle`
     a:visited,
     a:link,
     button:focus,
-    input:focus {
+    input:focus,
+    select:focus {
         outline: none;
         text-decoration: none;
     }
