@@ -10,6 +10,7 @@
   "dependencies": {
     "@auth0/nextjs-auth0": "^0.16.1",
     "@types/next-auth": "^3.1.24",
+    "express": "^4.17.1",
     "framer-motion": "^3.3.0",
     "mysql": "^2.18.1",
     "next": "^10.0.5",

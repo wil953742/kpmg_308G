@@ -1,0 +1,7 @@
+{
+    "host":"db-308g.cljcpdajf6os.ap-northeast-2.rds.amazonaws.com",
+    "user": "admin",
+    "password": "adminsizeyourself",
+    "port": "3306",
+    "database": "DB_308G"
+}
