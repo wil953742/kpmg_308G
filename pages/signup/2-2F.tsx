@@ -128,6 +128,11 @@ const ButtonRow = styled.div`
 
 const Chest = styled.div`
   width: 50% !important;
+  margin-top: 14vh;
+
+  * {
+    margin-bottom: 3vh;
+  }
 
   h4 {
     color: black;
@@ -136,7 +141,80 @@ const Chest = styled.div`
   }
 `;
 
+const SizeTable = styled.div`
+  width: 100% !important;
+  background-color: rgba(153, 153, 153, 0.05);
+  border-radius: 16px;
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: flex-start;
+
+  input[type="radio"] {
+    display: none;
+  }
+
+  label {
+    display: inline-block;
+    text-align: center;
+    padding: 20px 0;
+    width: calc(100% / 6);
+    margin: 0;
+    border-right: 1px solid black;
+  }
+
+  label:last-child {
+    border-right: 0 !important;
+  }
+
+  label:nth-child(12) {
+    border-right: 0 !important;
+  }
+
+  label:nth-child(-n + 13) {
+    border-bottom: 1px solid black;
+  }
+
+  input[type="radio"]:checked + label {
+    font-weight: bold;
+  }
+`;
+
+const DupSizeTable = styled.div`
+  width: 100% !important;
+  background-color: rgba(153, 153, 153, 0.05);
+  border-radius: 16px;
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: flex-start;
+
+  input[type="radio"] {
+    display: none;
+  }
+
+  label {
+    display: inline-block;
+    text-align: center;
+    padding: 20px 0;
+    width: calc(100% / 6);
+    margin: 0;
+    border-right: 1px solid black;
+  }
+
+  label:nth-child(12) {
+    border-right: 0 !important;
+  }
+
+  label:nth-child(-n + 13) {
+    border-bottom: 1px solid black;
+  }
+
+  input[type="radio"]:checked + label {
+    font-weight: bold;
+  }
+`;
+
 export default function TwoTwoF() {
+  const chestSize = ["AA", "A", "B", "C", "D", "E", "F", "G"];
   return (
     <>
       <Head>
@@ -194,7 +272,7 @@ export default function TwoTwoF() {
               </div>
               <Chest>
                 <h4>사이즈</h4>
-                <div>
+                <SizeTable>
                   {[...Array(12).keys()].map((key) => {
                     const num = String(65 + key * 5);
                     return (
@@ -204,8 +282,18 @@ export default function TwoTwoF() {
                       </>
                     );
                   })}
-                </div>
+                </SizeTable>
                 <h4>컵</h4>
+                <DupSizeTable>
+                  {[...chestSize].map((key) => {
+                    return (
+                      <>
+                        <input type="radio" name="size" id={key} value={key} />
+                        <label htmlFor={key}>{key}</label>
+                      </>
+                    );
+                  })}
+                </DupSizeTable>
               </Chest>
               <div>
                 <h2>힙</h2>
