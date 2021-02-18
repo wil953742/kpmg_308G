@@ -1,6 +1,6 @@
 const fs = require("fs");
 const express = require("express");
-//const bodyParser = require("body-parser");
+const bodyParser = require("body-parser");
 
 const app = express();
 
@@ -51,3 +51,16 @@ app.post("/signup", (req, res) => {
       }
     });
   });
+
+  app.get("/api/login/:id&:password", (req, res) => {
+    const id = req.params.id;
+    const pw = req.params.password;
+    connection.query(
+      `SELECT * FROM DB_308G.ACCOUNT \
+       WHERE Id = "${id}" AND Password="${pw}"`,
+      (err, rows, fields) => {
+        res.send(rows);
+      }
+    );
+  });
+  

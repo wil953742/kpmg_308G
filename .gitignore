@@ -12,6 +12,7 @@
 /.next/
 /out/
 /kpmg_308G
+/my-app
 
 # production
 /build
