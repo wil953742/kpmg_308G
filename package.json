@@ -3,18 +3,26 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next", 
     "build": "next build",
-    "start": "next start"
+    "start": "next start -p 8000",
+    "app": "node app",
+    "server": "node server"
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^0.16.1",
     "@types/next-auth": "^3.1.24",
+    "axios": "^0.21.1",
+    "connect-flash": "^0.1.1",
     "express": "^4.17.1",
+    "express-session": "^1.17.1",
     "framer-motion": "^3.3.0",
+    "method-override": "^3.0.0",
     "mysql": "^2.18.1",
     "next": "^10.0.5",
     "next-auth": "^3.4.1",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "styled-components": "^5.2.1"
