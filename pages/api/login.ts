@@ -17,7 +17,7 @@ const handler: NextApiHandler = async (req, res) => {
     );
     return res.json(results[0]);
   } catch (e) {
-    res.json("invalid user");
+    res.status(500).json({ message: e.message });
   }
 };
 
