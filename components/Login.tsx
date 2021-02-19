@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Dispatch, SetStateAction, useEffect } from "react";
-import login from "../pages/api/login";
 import { useState } from "react";
 
 const axios = require("axios");
@@ -137,8 +135,6 @@ const LoginModal = styled(motion.div)`
 export const Login = ({ setToggleSignIn }) => {
   const [userID, setUserId] = useState<string>();
   const [password, setPassword] = useState<string>();
-  const [data, useData] = useState();
-  const [saveCrendential, setSaveCredential] = useState<boolean>(false);
 
   const login = () => {
     if (!userID) {
@@ -150,46 +146,15 @@ export const Login = ({ setToggleSignIn }) => {
       return;
     }
     const checkbox = document.getElementById("save") as HTMLInputElement;
-    console.log(userID);
-    console.log(password);
-    console.log(checkbox.checked);
-
-    loginInfo();
+    tryLogin();
   };
 
-  const loginInfo = async () => {
-    const res = await axios.post('/login', {Id : userID, Password : password}).catch((err) => {
-      if (err.response) {
-        console.log(err.responsse);
-      } else if (err.request) {
-        console.log("never recieved a response");
-      }
-    });
-
-    console.log("res...." + res);
-
-
-
+  const tryLogin = async () => {
+    const url = `/api/login?id=${userID}&password=${password}`;
+    const res = await axios.get(url);
+    console.log(res.data);
   };
 
-  
-  
-  /*
-  useEffect(() => {
-    if (data[0][0].length == 0) {
-      alert("존재하지 않는 아이디 입니다.")
-      return
-    }
-    else if (data[0].password != password) {
-      alert("비밀번호를 확인해주세요.");
-      return;
-    }
-    else {
-      console.log("data" + data[0][0] + " " + "password")
-    }
-      
-  }, [data]);
-  */
   return (
     <LoginModal
       initial={{ opacity: 0 }}

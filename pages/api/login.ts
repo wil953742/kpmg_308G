@@ -1,10 +1,24 @@
-import auth0 from "./utils/auth0";
+import { NextApiHandler } from "next";
+import { query } from "../../lib/db";
 
-export default async function login(req, res) {
+const handler: NextApiHandler = async (req, res) => {
+  const { id } = req.query;
+  const { password } = req.query;
   try {
-    await auth0.handleLogin(req, res);
-  } catch (error) {
-    console.error(error);
-    res.status(error.status || 400).end(error.message);
+    if (!id) {
+      return res.status(400).json({ message: "`id` required" });
+    }
+    const results = await query(
+      `
+      SELECT *
+      FROM ACCOUNT
+      WHERE id = "${id}" AND password = "${password}"
+    `
+    );
+    return res.json(results[0]);
+  } catch (e) {
+    res.json("invalid user");
   }
-}
+};
+
+export default handler;

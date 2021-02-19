@@ -229,35 +229,35 @@ export default function two() {
                     id="girlish"
                     value="girlish"
                   />
-                  <label htmlFor="girlish">걸리시 룩</label>
+                  <label htmlFor="girlish">걸리시</label>
                   <input
                     type="checkbox"
                     name="look"
                     id="feminine"
                     value="feminine"
                   />
-                  <label htmlFor="feminine">페미닌 룩</label>
+                  <label htmlFor="feminine">페미닌</label>
                   <input
                     type="checkbox"
                     name="look"
                     id="manish"
                     value="manish"
                   />
-                  <label htmlFor="manish">매니시 룩</label>
+                  <label htmlFor="manish">매니시</label>
                   <input
                     type="checkbox"
                     name="look"
                     id="sporty"
                     value="sporty"
                   />
-                  <label htmlFor="sporty">스포티 룩</label>
+                  <label htmlFor="sporty">스포티</label>
                   <input
                     type="checkbox"
                     name="look"
                     id="aethnic"
                     value="aethnic"
                   />
-                  <label htmlFor="aethnic">에스닉 룩</label>
+                  <label htmlFor="aethnic">에스닉</label>
                 </ButtonRow>
                 <ButtonRow style={{ marginTop: "1.5vh" }}>
                   <input
@@ -266,30 +266,30 @@ export default function two() {
                     id="modern"
                     value="modern"
                   />
-                  <label htmlFor="modern">모던 룩</label>
+                  <label htmlFor="modern">모던</label>
                   <input type="checkbox" name="look" id="dandy" value="dandy" />
-                  <label htmlFor="dandy">댄디 룩</label>
+                  <label htmlFor="dandy">댄디</label>
                   <input
                     type="checkbox"
                     name="look"
                     id="military"
                     value="military"
                   />
-                  <label htmlFor="military">밀리터리 룩</label>
+                  <label htmlFor="military">밀리터리</label>
                   <input
                     type="checkbox"
                     name="look"
                     id="minimal"
                     value="minimal"
                   />
-                  <label htmlFor="minimal">미니멀 룩</label>
+                  <label htmlFor="minimal">미니멀</label>
                   <input
                     type="checkbox"
                     name="fit"
                     id="office"
                     value="office"
                   />
-                  <label htmlFor="office">오피스 룩</label>
+                  <label htmlFor="office">오피스</label>
                 </ButtonRow>
               </div>
               <div>
