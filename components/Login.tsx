@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Dispatch, SetStateAction, useState } from "react";
-import login from "../pages/api/login";
+import { useState } from "react";
 
 const LoginModal = styled(motion.div)`
   position: absolute;

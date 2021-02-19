@@ -167,7 +167,7 @@ export default function two() {
   return (
     <>
       <Head>
-        <title>Sizeyourself::회원가입::Step2</title>
+        <title>Sizeyourself::회원가입::Step3</title>
       </Head>
       <Layout>
         <MainContent>
@@ -185,11 +185,10 @@ export default function two() {
                 </Link>
               </p>
               <p>
-                Step 1{" "}
+                Step 1 <span>Step 2</span>{" "}
                 <span style={{ color: "black !important" }}>
-                  Step 2 사이즈 정보입력
-                </span>{" "}
-                <span> Step 3</span>
+                  Step 3 취향 정보입력
+                </span>
               </p>
             </div>
             <Content>
@@ -320,9 +319,26 @@ export default function two() {
                 </LongButtonRow>
               </div>
               <div>
-                <h2>
-                  Q5. 나는 기업의 환경과 사회에 대한 책임을 중요하게 생각합니다.
-                </h2>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    width: "100%",
+                  }}
+                >
+                  <h2>
+                    Q5. 나는 기업의 환경과 사회에 대한 책임을 중요하게
+                    생각합니다.
+                  </h2>
+                  <input
+                    style={{
+                      marginTop: "7.2vh",
+                      marginBottom: "2vh",
+                    }}
+                    type="checkbox"
+                  />
+                </div>
                 <p>Sustainability</p>
               </div>
               <Link href="/">
