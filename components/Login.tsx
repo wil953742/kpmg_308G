@@ -146,13 +146,13 @@ export const Login = ({ setToggleSignIn }) => {
       return;
     }
     const checkbox = document.getElementById("save") as HTMLInputElement;
-    tryLogin();
+    handleLogin;
   };
 
-  const tryLogin = async () => {
+  const handleLogin = async (event) => {
+    event.preventDefault();
     const url = `/api/login?id=${userID}&password=${password}`;
     const res = await axios.get(url);
-    console.log(res.data);
   };
 
   return (
