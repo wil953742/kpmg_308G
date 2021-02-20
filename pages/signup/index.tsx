@@ -181,7 +181,7 @@ export default function Signup() {
                 <p>이메일로 회원가입</p>
                 <hr />
               </div>
-              <Link href="/signup/1">
+              <Link href={{pathname: "/signup/1", query : { query : 'right' }}}>
                 <Email
                   style={{
                     color: "white",

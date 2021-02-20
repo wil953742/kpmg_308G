@@ -236,6 +236,13 @@ function two({ router: { query } }) {
 
   const [calculated, setCalculated] = useState<boolean>(false);
 
+  if(typeof query.query == 'undefined'){
+    const router = useRouter();
+    useEffect(()=>{
+      router.push('/');
+    }, []);
+  }
+
   const myRef = useRef<SVGSVGElement>(null);
   var identifiables = new WeakMap<Object, number>();
   var nextId = 1;
@@ -406,9 +413,20 @@ function two({ router: { query } }) {
       setResult(result);
       setLineList([]);
       setNodeList([]);
-      console.log(result);
+      console.log(result);      
     }
   };
+
+  const nextPage = () => {
+    
+  }
+
+  useEffect(()=> {
+    const user = query.query;
+    console.log(user)
+    
+
+  }, [height, weight])
 
   const calcHeight = (event) => {
     event.preventDefault();
