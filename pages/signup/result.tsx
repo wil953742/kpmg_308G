@@ -2,6 +2,8 @@ import Head from "next/head";
 import Layout from "../../components/Layout";
 import styled from "styled-components";
 import Link from "next/link";
+import { Router, useRouter, withRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 const MainContent = styled.div`
   display: flex;
@@ -118,7 +120,46 @@ const Button = styled.a`
   }
 `;
 
-export default function TwoTwo() {
+function TwoTwo({ router: { query } }) {
+  const [user, setUser] = useState<any>();
+  const router = useRouter();
+
+  const [upper, setUpper] = useState();
+  const [shoulder, setShoulder] = useState();
+  const [arm, setArm] = useState();
+  const [waist, setWaist] = useState();
+  const [leg, setLeg] = useState();
+
+  if (typeof query.query == "undefined") {
+    useEffect(() => {
+      router.push("/");
+    }, []);
+  }
+
+  useEffect(() => {
+    if (query.query) {
+      setUser(JSON.parse(query.query));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (user) {
+      setUpper(user.upper);
+      setShoulder(user.shoulder);
+      setArm(user.arm);
+      setWaist(user.waist);
+      setLeg(user.leg);
+    }
+  }, [user]);
+
+  const handleNew = (e) => {
+    e.preventDefault();
+    console.log(user);
+    router.push({
+      pathname: "/",
+    });
+  };
+
   return (
     <>
       <Head>
@@ -146,7 +187,12 @@ export default function TwoTwo() {
               <h2>아바타</h2>
               <p>My Avatar</p>
               <Container>
-                <img src="/images/test.svg" />
+                {user && user.gender === "여자" && (
+                  <img src="/images/test.svg" />
+                )}
+                {user && user.gender === "남자" && (
+                  <img src="/images/test.svg" />
+                )}
               </Container>
               <h2>상세 사이즈</h2>
               <p>My Size</p>
@@ -154,40 +200,40 @@ export default function TwoTwo() {
                 <div>
                   <p>상체총장</p>
                   <p>
-                    <span>67</span>
+                    <span>{upper}</span>
                   </p>
                   <p>cm</p>
                 </div>
                 <div>
                   <p>어깨너비</p>
                   <p>
-                    <span>67</span>
+                    <span>{shoulder}</span>
                   </p>
                   <p>cm</p>
                 </div>
                 <div>
                   <p>소매길이</p>
                   <p>
-                    <span>67</span>
+                    <span>{arm}</span>
                   </p>
                   <p>cm</p>
                 </div>
                 <div>
                   <p>허리단면</p>
                   <p>
-                    <span>67</span>
+                    <span>{waist}</span>
                   </p>
                   <p>cm</p>
                 </div>
                 <div>
                   <p>하체총장</p>
                   <p>
-                    <span>67</span>
+                    <span>{leg}</span>
                   </p>
                   <p>cm</p>
                 </div>
               </Container>
-              <Button>Sizeyourself 시작하기</Button>
+              <Button onClick={handleNew}>Sizeyourself 시작하기</Button>
             </Content>
           </MainMargin>
         </MainContent>
@@ -195,3 +241,5 @@ export default function TwoTwo() {
     </>
   );
 }
+
+export default withRouter(TwoTwo);

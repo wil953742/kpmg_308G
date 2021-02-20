@@ -2,8 +2,8 @@ import Head from "next/head";
 import Layout from "../../components/Layout";
 import styled from "styled-components";
 import Link from "next/link";
-import { useState, useEffect } from 'react';
-import { withRouter, useRouter } from 'next/router';
+import { useState, useEffect } from "react";
+import { withRouter, useRouter } from "next/router";
 
 const MainContent = styled.div`
   display: flex;
@@ -165,22 +165,53 @@ const TextBox = styled.div`
   }
 `;
 
-function two({router : {query}}) {
+function two({ router: { query } }) {
+  const [user, setUser] = useState<any>();
+  const [brand, setBrand] = useState<string>();
 
-  if(typeof query.query == 'undefined'){
-    const router = useRouter();
-    useEffect(()=>{
-      router.push('/');
+  const router = useRouter();
+
+  if (typeof query.query == "undefined") {
+    useEffect(() => {
+      router.push("/");
     }, []);
   }
-  
-  const [user, setUser] = useState<any>();
 
-  useEffect(()=>{
-    if(user){
+  useEffect(() => {
+    if (query.query) {
       setUser(JSON.parse(query.query));
     }
-  }, [])
+  }, []);
+
+  const handleCreate = (e) => {
+    e.preventDefault();
+    const fit = (document.querySelector(
+      'input[name="fit"]:checked'
+    ) as HTMLInputElement)?.value;
+    const look = Array.from(
+      document.querySelectorAll('input[name="look"]:checked')
+    );
+    const type = (document.querySelector(
+      'input[name="type"]:checked'
+    ) as HTMLInputElement)?.value;
+    const env = (document.getElementById("env") as HTMLInputElement).checked;
+    if (!(fit && look && type)) {
+      alert("모두 선택해주세요.");
+      return;
+    }
+    user["fit"] = fit;
+    user["type"] = type;
+    user["env"] = env;
+    user["brand"] = brand;
+    var temp = [];
+    look.forEach((value) => temp.push((value as HTMLInputElement).value));
+    user["look"] = temp;
+
+    router.push({
+      pathname: "/signup/result",
+      query: { query: JSON.stringify(user) },
+    });
+  };
 
   return (
     <>
@@ -234,7 +265,12 @@ function two({router : {query}}) {
                 <h2>Q2. 선호하는 브랜드가 있으신가요? (선택)</h2>
                 <p>Brand Preference</p>
                 <TextBox>
-                  <input type="text" placeholder="브랜드명을 적어주세요" />
+                  <input
+                    type="text"
+                    placeholder="브랜드명을 적어주세요"
+                    value={brand}
+                    onChange={(e) => setBrand(e.target.value)}
+                  />
                 </TextBox>
               </div>
               <div>
@@ -350,6 +386,7 @@ function two({router : {query}}) {
                     생각합니다.
                   </h2>
                   <input
+                    id="env"
                     style={{
                       marginTop: "7.2vh",
                       marginBottom: "2vh",
@@ -359,9 +396,9 @@ function two({router : {query}}) {
                 </div>
                 <p>Sustainability</p>
               </div>
-              <Link href="/">
-                <a id="next">아바타 생성하기</a>
-              </Link>
+              <button id="next" onClick={handleCreate}>
+                아바타 생성하기
+              </button>
             </Content>
           </MainMargin>
         </MainContent>
@@ -370,4 +407,4 @@ function two({router : {query}}) {
   );
 }
 
-export default withRouter(two)
+export default withRouter(two);

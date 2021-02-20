@@ -222,7 +222,7 @@ function two({ router: { query } }) {
   const [lineList, setLineList] = useState<lineData[]>([]);
   const [poseData, setPoseData] = useState<any>();
   const [ratio, setRatio] = useState<number>();
-  const [result, setResult] = useState<number[]>([0, 0, 0, 0, 0]);
+  const [result, setResult] = useState<number[]>();
 
   const [imgLoad, setImgLoad] = useState<boolean>(false);
   const [img, setImg] = useState<string>();
@@ -237,7 +237,6 @@ function two({ router: { query } }) {
   const [calculated, setCalculated] = useState<boolean>(false);
 
   if (typeof query.query == "undefined") {
-    const router = useRouter();
     useEffect(() => {
       router.push("/");
     }, []);
@@ -417,8 +416,6 @@ function two({ router: { query } }) {
       setResult(result);
       setLineList([]);
       setNodeList([]);
-      console.log(result); 
-
       nextPage(result);
     }
   };
@@ -426,24 +423,22 @@ function two({ router: { query } }) {
   const nextPage = (result) => {
     const user = JSON.parse(query.query);
 
-    user.Height = height;
-    user.Weight = weight;
-    console.log("height ! : " + height);
-    //console.log("obj ! : " + Object.getOwnPropertyNames(user));
+    user["height"] = height;
+    user["weight"] = weight;
 
-    if(result.length > 0){
-      user.Upper = result[0];
-      user.Shoulder = result[1];
-      user.Arm = result[2];
-      user.Waist = result[3];
-      user.Leg = result[4];
+    if (result.length > 0) {
+      user["upper"] = result[0];
+      user["shoulder"] = result[1];
+      user["arm"] = result[2];
+      user["waist"] = result[3];
+      user["leg"] = result[4];
     }
 
     router.push({
       pathname: "/signup/2-1",
-      query: { query : JSON.stringify(user) },
-    })
-  }
+      query: { query: JSON.stringify(user) },
+    });
+  };
 
   const calcHeight = (event) => {
     event.preventDefault();
@@ -477,6 +472,7 @@ function two({ router: { query } }) {
       setLoading(false);
       setCalculated(true);
     } else {
+      setResult([0, 0, 0, 0, 0]);
       setLoading(true);
     }
   };
@@ -557,11 +553,8 @@ function two({ router: { query } }) {
               </Submit>
               {img && (
                 <Example>
-                  {calculated ? (
-                    <img src="/images/rest.png" />
-                  ) : (
-                    <img src="/images/height.png" />
-                  )}
+                  {!calculated && <img src="/images/height.png" />}
+                  {calculated && !result && <img src="/images/rest.png" />}
                 </Example>
               )}
               <DataRow>

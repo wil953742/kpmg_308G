@@ -2,8 +2,8 @@ import Head from "next/head";
 import Layout from "../../components/Layout";
 import styled from "styled-components";
 import Link from "next/link";
-import { useState, useEffect } from 'react';
-import { withRouter, useRouter } from 'next/router';
+import { useState, useEffect } from "react";
+import { withRouter, useRouter } from "next/router";
 
 const MainContent = styled.div`
   display: flex;
@@ -128,22 +128,25 @@ const ButtonRow = styled.div`
   }
 `;
 
-function TwoTwo({router : {query}}) {
+function TwoTwo({ router: { query } }) {
+  const [user, setUser] = useState<any>();
+  const router = useRouter();
 
-  if(typeof query.query == 'undefined'){
-    const router = useRouter();
-    useEffect(()=>{
-      router.push('/');
+  if (typeof query.query == "undefined") {
+    useEffect(() => {
+      router.push("/");
     }, []);
   }
 
-  const [user, setUser] = useState<any>();
-
-  useEffect(()=>{
-    if(user){
+  useEffect(() => {
+    if (query.query) {
       setUser(JSON.parse(query.query));
     }
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
 
   const handleNext = (event) => {
     event.preventDefault();
@@ -153,12 +156,14 @@ function TwoTwo({router : {query}}) {
     const tummy = (document.querySelector(
       'input[name="tummy"]:checked'
     ) as HTMLInputElement)?.value;
-    
-    user.Tummy = tummy;
-    user.Chest = chest;
+    if (!(chest && tummy)) {
+      alert("모두 입력해주세요.");
+      return;
+    }
 
-    const router = useRouter();
-    
+    user["tummy"] = tummy;
+    user["chest"] = chest;
+
     router.push({
       pathname: "/signup/3",
       query: { query: JSON.stringify(user) },
@@ -242,4 +247,4 @@ function TwoTwo({router : {query}}) {
   );
 }
 
-export default withRouter(TwoTwo)
+export default withRouter(TwoTwo);

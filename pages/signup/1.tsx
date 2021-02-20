@@ -166,30 +166,53 @@ const Radio = styled.div`
 `;
 
 function one({ router: { query } }) {
-  const [username, setUsername] = useState<String>();
-  const [phone, setPhone] = useState<String>();
-  const [email, setEmail] = useState<String>();
-  const [userID, setUserId] = useState<String>();
-  const [password, setPassword] = useState<String>();
-  const [passcheck, setPasscheck] = useState<String>();
+  const [username, setUsername] = useState<string>();
+  const [phone, setPhone] = useState<string>();
+  const [email, setEmail] = useState<string>();
+  const [userID, setUserId] = useState<string>();
+  const [password, setPassword] = useState<string>();
+  const [passcheck, setPasscheck] = useState<string>();
   const router = useRouter();
 
   if (typeof query.query == "undefined") {
-    const router = useRouter();
     useEffect(() => {
       router.push("/");
     }, []);
   }
 
+  const handleAgree = (event) => {
+    event.preventDefault();
+    const box = document.getElementById("agree_all")! as HTMLInputElement;
+    const box1 = document.getElementById("agree_mend_1")! as HTMLInputElement;
+    const box2 = document.getElementById("agree_mend_2")! as HTMLInputElement;
+    const box3 = document.getElementById("agree_opt")! as HTMLInputElement;
+    if (box.checked) {
+      box1.checked = true;
+      box2.checked = true;
+      box3.checked = true;
+    } else {
+      box1.checked = false;
+      box2.checked = false;
+      box3.checked = false;
+    }
+    console.log(box.checked, box1.checked, box2.checked, box3.checked);
+  };
+
   const toNext = (e) => {
     e.preventDefault();
 
     const selectValue = document.getElementsByTagName("select");
-
     const birthday =
       selectValue[0].value + selectValue[1].value + selectValue[2].value;
     const gender = selectValue[3].value;
     const phoneFull = selectValue[4].value + phone;
+    const box1 = document.getElementById("agree_mend_1")! as HTMLInputElement;
+    const box2 = document.getElementById("agree_mend_2")! as HTMLInputElement;
+
+    if (!box1.checked && box2.checked) {
+      alert("약관에 동의해주세요.");
+      return;
+    }
 
     if (!username || !phone || !email || !userID || !password || !passcheck) {
       alert("빈칸을 확인해 주세요");
@@ -211,17 +234,6 @@ function one({ router: { query } }) {
       return;
     }
 
-<<<<<<< Updated upstream
-    const user = new User();
-
-    user.Id = userID;
-    user.Password = password;
-    user.Username = username;
-    user.Birthday = birthday;
-    user.Gender = gender;
-    user.Phone = phoneFull;
-    user.Email = email;
-=======
     var user = {};
 
     user["id"] = userID;
@@ -231,7 +243,6 @@ function one({ router: { query } }) {
     user["gender"] = gender;
     user["phone"] = phoneFull;
     user["email"] = email;
->>>>>>> Stashed changes
 
     router.push({
       pathname: "/signup/2",
@@ -270,6 +281,7 @@ function one({ router: { query } }) {
                 <input
                   type="text"
                   className="one"
+                  value={username}
                   onChange={(e) => {
                     setUsername(e.target.value);
                   }}
@@ -315,6 +327,7 @@ function one({ router: { query } }) {
                   <input
                     type="text"
                     placeholder="'-'표 없이 입력해주세요"
+                    value={phone}
                     onChange={(e) => {
                       setPhone(e.target.value);
                     }}
@@ -326,6 +339,7 @@ function one({ router: { query } }) {
                 <input
                   type="text"
                   className="one"
+                  value={email}
                   onChange={(e) => {
                     setEmail(e.target.value);
                   }}
@@ -337,6 +351,7 @@ function one({ router: { query } }) {
                   type="text"
                   className="one"
                   placeholder="6자 이상 영문, 숫자 입력 가능"
+                  value={userID}
                   onChange={(e) => {
                     setUserId(e.target.value);
                   }}
@@ -348,6 +363,7 @@ function one({ router: { query } }) {
                   type="password"
                   className="one"
                   placeholder="영문, 숫자, 특수문자 중 2가지 이상 조합 (최소 8자)"
+                  value={password}
                   onChange={(e) => {
                     setPassword(e.target.value);
                   }}
@@ -359,6 +375,7 @@ function one({ router: { query } }) {
                   type="password"
                   className="one"
                   placeholder="비밀번호를 다시 한번 입력해 주세요"
+                  value={passcheck}
                   onChange={(e) => {
                     setPasscheck(e.target.value);
                   }}
@@ -372,20 +389,20 @@ function one({ router: { query } }) {
                 }}
               />
               <Radio style={{ marginBottom: "5.6vh" }}>
-                <input type="checkbox" />
+                <input type="checkbox" id="agree_all" onChange={handleAgree} />
                 <p style={{ fontWeight: 500 }}>
                   전체동의(약관 및 개인 정보 수집 동의 등)
                 </p>
               </Radio>
               <Radio>
-                <input type="checkbox" />
+                <input type="checkbox" id="agree_mend_1" />
                 <div>
                   <p>(필수) 서비스 이용약관</p>
                   <a id="detail">자세히보기</a>
                 </div>
               </Radio>
               <Radio>
-                <input type="checkbox" />
+                <input type="checkbox" id="agree_mend_2" />
                 <div>
                   <p>(필수) 개인정보 수집 이용동의</p>
                   <a id="detail">자세히보기</a>
@@ -396,7 +413,7 @@ function one({ router: { query } }) {
                 회원가입이 제한됩니다.
               </p>
               <Radio>
-                <input type="checkbox" />
+                <input type="checkbox" id="agree_opt" />
                 <div>
                   <p>(선택) 홍보 마케팅 목적 개인정보 수집 및 이용 동의</p>
                   <a id="detail">자세히보기</a>
