@@ -91,9 +91,34 @@ const LoginButton = styled.div`
       height: 100%;
     }
   }
+
+  a:visited {
+    color: white;
+  }
+`;
+
+const Email = styled.a`
+  width: 37.5%;
+  margin-top: 1.48vh;
+  border-radius: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 5.28vh;
+  font-size: 12px;
+  font-weight: 530;
+  background-color: rgba(25, 25, 25, 0.65);
+
+  a:visited {
+    color: white;
+  }
 `;
 
 export default function Signup() {
+  const hanldeUnfinished = (event) => {
+    alert("서비스 준비 중입니다.");
+  };
   return (
     <>
       <Head>
@@ -117,6 +142,7 @@ export default function Signup() {
               <h3>회원가입은 14세 이상 고객만 가능합니다.</h3>
               <LoginButton
                 style={{ backgroundColor: "rgba(234, 234, 234, 0.65)" }}
+                onClick={hanldeUnfinished}
               >
                 <div style={{ height: "72%", width: "95%" }}>
                   <img src="/images/small_google.svg" />
@@ -125,13 +151,17 @@ export default function Signup() {
               </LoginButton>
               <LoginButton
                 style={{ backgroundColor: "#099A49", color: "white" }}
+                onClick={hanldeUnfinished}
               >
                 <div>
                   <img src="/images/small_naver.svg" />
                 </div>
                 <p>네이버 계정으로 회원가입</p>
               </LoginButton>
-              <LoginButton style={{ backgroundColor: "#FDEB1D" }}>
+              <LoginButton
+                style={{ backgroundColor: "#FDEB1D" }}
+                onClick={hanldeUnfinished}
+              >
                 <div>
                   <img src="/images/small_kakao.svg" />
                 </div>
@@ -139,6 +169,7 @@ export default function Signup() {
               </LoginButton>
               <LoginButton
                 style={{ backgroundColor: "#385997", color: "white" }}
+                onClick={hanldeUnfinished}
               >
                 <div>
                   <img src="/images/small_facebook.svg" />
@@ -150,9 +181,17 @@ export default function Signup() {
                 <p>이메일로 회원가입</p>
                 <hr />
               </div>
-              <LoginButton style={{ color: "white", marginTop: "3.88vh" }}>
-                <p>회원가입</p>
-              </LoginButton>
+              <Link href="/signup/1">
+                <Email
+                  style={{
+                    color: "white",
+                    marginTop: "3.88vh",
+                    cursor: "pointer",
+                  }}
+                >
+                  <p>회원가입</p>
+                </Email>
+              </Link>
             </Content>
           </MainMargin>
         </MainContent>

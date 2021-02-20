@@ -122,7 +122,6 @@ const NextButton = styled.a`
 `;
 
 export default function Interlim() {
-  
   return (
     <>
       <Head>

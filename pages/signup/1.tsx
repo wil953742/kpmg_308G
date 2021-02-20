@@ -173,6 +173,13 @@ export default function one(props) {
   const [passcheck, setPasscheck] = useState<String>();
   const router = useRouter();
 
+  const toNext = (e) => {
+    e.preventDefault();
+    router.push({
+      pathname: "/signup/2",
+      query: { random: "random" },
+    });
+  };
 
   if(props){
     console.log('props : ' +props.constructor.name);
@@ -344,7 +351,9 @@ export default function one(props) {
                 만 14세 이상이며, 이용약관과 개인정보 수집 및 이용을 <br />
                 확인하였고 동의하십니까?
               </p>
-              <div id="submit" onClick={submit}>동의하고 회원가입</div>
+              <div id="submit" onClick={toNext}>
+                동의하고 회원가입
+              </div>
             </Content>
           </MainMargin>
         </MainContent>

@@ -70,6 +70,7 @@ const Navi = styled.nav`
     #dropdown-content {
       display: none;
       position: absolute;
+      z-index: 50;
       top: 100%;
       border: 1px solid #999999;
       border-top: 0;
@@ -133,50 +134,26 @@ export const Nav = () => {
               />
             </a>
           </Link>
-          {lang === "ko-KR" && (
-            <div id="dropdown">
-              <div id="main">
-                <p>한국어 / KR &nbsp;</p>
-                <img
-                  src="/images/down.svg"
-                  alt="down"
-                  width="7.79px"
-                  height="3.9px"
-                  style={{ marginLeft: "0px" }}
-                />
-              </div>
-              <div
-                id="dropdown-content"
-                onClick={() => {
-                  setLang("ENG");
-                }}
-              >
-                <p>ENGLISH / EN &nbsp;</p>
-              </div>
+          <div id="dropdown">
+            <div id="main">
+              <p>한국어 / KR &nbsp;</p>
+              <img
+                src="/images/down.svg"
+                alt="down"
+                width="7.79px"
+                height="3.9px"
+                style={{ marginLeft: "0px" }}
+              />
             </div>
-          )}
-          {lang !== "ko-KR" && (
-            <div id="dropdown">
-              <div id="main">
-                <p>ENGLISH / EN &nbsp;</p>
-                <img
-                  src="/images/down.svg"
-                  alt="down"
-                  width="7.79px"
-                  height="3.9px"
-                  style={{ marginLeft: "0px" }}
-                />
-              </div>
-              <div
-                id="dropdown-content"
-                onClick={() => {
-                  setLang("KOR");
-                }}
-              >
-                <p>한국어 / KR &nbsp;</p>
-              </div>
+            <div
+              id="dropdown-content"
+              onClick={() => {
+                alert("페이지 준비중입니다.");
+              }}
+            >
+              <p>ENGLISH / EN &nbsp;</p>
             </div>
-          )}
+          </div>
         </div>
         <div className="right">
           <div
@@ -194,14 +171,15 @@ export const Nav = () => {
               </a>
             </Link>
           </div>
-          <Link href="/my">
-            <a>
-              <div>
-                <img src="/images/mypage.svg" alt="login" />
-                <p>마이페이지</p>
-              </div>
-            </a>
-          </Link>
+          <a
+            style={{ cursor: "pointer" }}
+            onClick={() => alert("서비스 준비중입니다.")}
+          >
+            <div>
+              <img src="/images/mypage.svg" alt="login" />
+              <p>마이페이지</p>
+            </div>
+          </a>
         </div>
       </Navi>
     </>

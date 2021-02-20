@@ -15,7 +15,6 @@ const handler: NextApiHandler = async (req, res) => {
       WHERE id = "${id}" AND password = "${password}"
     `
     );
-
     return res.json(results[0]);
   } catch (e) {
     res.status(500).json({ message: e.message });
