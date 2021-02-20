@@ -11,12 +11,32 @@ const handler: NextApiHandler = async (req, res) => {
   const { phone } = req.body.Gender;
   
   try {
-    const results = await query(
+    await query(
     `INSERT INTO 'DB_308G'.'ACCOUNT' ('Id', 'Password', 'Lastname', 'Firstname', 'Birthday', 'Gender', 'Phone')\
      VALUES ('${id}', '${password}', '${lastname}', '${firstname}', '${birthday}', '${gender}', '${phone}');`
     );
 
-    return res.json(results[0]);
+    await query(
+    `INSERT INTO 'DB_308G'.'BODY' ('Bodykey', 'Id', 'Checkday', 'Height', 'Weight', 'Upper', 'Shoulder', 'Arm', 'Waist', 'Leg')\
+     VALUES (null, '${password}', '${lastname}', '${firstname}', '${birthday}', '${gender}', '${phone}', '${phone}', '${phone}', '${phone}');`
+    );
+
+    await query(
+    `INSERT INTO 'DB_308G'.'MAN' ('Bodykey', 'Id', 'Chest', 'Tummy')\
+    VALUES (null, '${password}', '${lastname}', '${firstname}');`
+    );
+
+    await query(
+      `INSERT INTO 'DB_308G'.'WOMAN' ('Bodykey', 'Id', 'Bra_size', 'Bra_cup', 'Hip', 'Tummy')\
+      VALUES (null, '${password}', '${lastname}', '${firstname}');`
+      );
+
+    await query(
+      `INSERT INTO 'DB_308G'.'PREFERENCE' ('Preferencekey', 'Id', 'Fit', 'Brand', 'Vibe', 'Type', 'Esg')\
+      VALUES (null, '${password}', '${lastname}', '${firstname}', '${firstname}', '${firstname}', '${firstname}');`
+      );
+
+    return null;
   } catch (e) {
     res.status(500).json({ message: e.message });
   }

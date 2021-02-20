@@ -184,12 +184,13 @@ export default function one(props) {
   }
   
   const submit = () => {
-    const selectValue = document.getElementsByTagName("select") as HTMLCollection;
+    const selectValue = document.getElementsByTagName("select");
     console.log(selectValue.constructor.name);
 
     for(var key in selectValue) {
       console.log("key : " + key + " value : " + selectValue[key]);
-    } 
+      console.log(selectValue[key].value);
+    }
   }
 
   return (
