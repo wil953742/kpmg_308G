@@ -2,6 +2,7 @@ import Head from "next/head";
 import Layout from "../../components/Layout";
 import styled from "styled-components";
 import Link from "next/link";
+import { useEffect } from "react";
 
 const MainContent = styled.div`
   display: flex;
@@ -162,6 +163,9 @@ const Radio = styled.div`
 `;
 
 export default function one() {
+  useEffect(() => {
+    console.log(document.getElementsByTagName("select"));
+  });
   return (
     <>
       <Head>
@@ -195,7 +199,7 @@ export default function one() {
               <div className="input-box">
                 <p>나이</p>
                 <div className="three">
-                  <select>
+                  <select id="year">
                     <option>생년(선택)</option>
                     {[...Array(120).keys()].map((key) => {
                       return <option value={key + 1900}>{key + 1900}</option>;

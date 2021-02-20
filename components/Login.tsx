@@ -129,6 +129,7 @@ const LoginModal = styled(motion.div)`
     font-size: 14px;
     color: #191919;
     margin-top: 6.95vh;
+    cursor: pointer;
   }
 `;
 
@@ -222,12 +223,24 @@ export const Login = ({ setToggleSignIn }) => {
           <div id="social">
             <img src="/images/google.svg" />
             <img src="/images/naver.svg" />
-            <img src="/images/kakao.svg" />
-            <img src="/images/facebook.svg" />
+            <img
+              src="/images/kakao.svg"
+              onClick={() => alert("서비스 준비중 입니다")}
+            />
+            <img
+              src="/images/facebook.svg"
+              onClick={() => alert("서비스 준비중 입니다")}
+            />
           </div>
           <div id="find">
-            <p>아이디 찾기 &nbsp;&nbsp;&nbsp;&nbsp;</p>|
-            <p> &nbsp;&nbsp;&nbsp;&nbsp;비밀번호 찾기</p>
+            <p onClick={() => alert("서비스 준비중 입니다")}>
+              아이디 찾기 &nbsp;&nbsp;&nbsp;&nbsp;
+            </p>
+            |
+            <p onClick={() => alert("서비스 준비중 입니다")}>
+              {" "}
+              &nbsp;&nbsp;&nbsp;&nbsp;비밀번호 찾기
+            </p>
           </div>
         </div>
       </div>

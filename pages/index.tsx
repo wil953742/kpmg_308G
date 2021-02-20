@@ -115,6 +115,7 @@ const Footer = styled.footer`
     padding: 6px 12px;
     font-size: 10px;
     height: 33%;
+    cursor: pointer;
   }
 `;
 
@@ -184,7 +185,11 @@ const Home = () => {
             <h2>Sizeyourself 가 처음이신가요?</h2>
             <p>Sizeyourself의 맞춤형 온라인 피팅 서비스에 대해 알아보세요.</p>
           </div>
-          <div id="detail" style={{ marginRight: "2.24vw" }}>
+          <div
+            id="detail"
+            style={{ marginRight: "2.24vw" }}
+            onClick={() => alert("준비중입니다")}
+          >
             <p>자세히 보기</p>
           </div>
         </Footer>

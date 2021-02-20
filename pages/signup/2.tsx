@@ -2,6 +2,31 @@ import Head from "next/head";
 import Layout from "../../components/Layout";
 import styled from "styled-components";
 import Link from "next/link";
+import { useState, useRef } from "react";
+import { ImageZone } from "../../components/ImageZone";
+import { useEffect } from "react";
+import { Circle } from "../../components/Circle";
+import { svg } from "d3";
+
+class circleData {
+  public node: string;
+  public cx: number;
+  public cy: number;
+  constructor(node: string, cx: number, cy: number) {
+    this.node = node;
+    this.cx = cx;
+    this.cy = cy;
+  }
+}
+
+class lineData {
+  public from: string;
+  public to: string;
+  constructor(from: string, to: string) {
+    this.from = from;
+    this.to = to;
+  }
+}
 
 const MainContent = styled.div`
   display: flex;
@@ -29,12 +54,10 @@ const MainContent = styled.div`
     text-decoration: underline;
   }
 `;
-
 const MainMargin = styled.div`
   width: 68.75%;
   max-width: 1280px;
 `;
-
 const Content = styled.div`
   display: flex;
   align-items: center;
@@ -76,13 +99,9 @@ const Content = styled.div`
     font-weight: 500;
   }
 `;
-
-const ImageBox = styled.div`
-  height: 62.4vh;
-  margin-bottom: 9.45vh;
-  background-color: gray;
+const Submit = styled.button`
+  margin-bottom: 8vh;
 `;
-
 const DataRow = styled.div`
   display: flex;
   justify-content: space-between;
@@ -109,13 +128,12 @@ const DataRow = styled.div`
     text-align: center;
   }
 `;
-
 const ButtonRow = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
 
-  a {
+  button {
     cursor: pointer;
     width: 27%;
     display: flex;
@@ -124,24 +142,124 @@ const ButtonRow = styled.div`
     height: 4.5vh;
     font-size: 11px;
     border-radius: 16px;
+    border: none;
   }
 
-  a:first-child {
+  button:first-child {
     color: #999999;
     border: 1.5px solid #999999;
   }
-  a:last-child {
+  button:last-child {
     color: white;
     background-color: #191919;
     opacity: 0.65;
   }
 `;
+const ImgBox = styled.div`
+  background-color: gray;
+  height: 62.4vh;
+  margin-bottom: 1.45vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  canvas {
+    position: absolute;
+    z-index: 10;
+  }
+
+  svg {
+    position: absolute;
+    z-index: 20;
+  }
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+`;
 
 export default function two() {
+  const d3 = require("d3");
+  const posenet = require("@tensorflow-models/posenet");
+
+  const [nodeList, setNodeList] = useState<circleData[]>([]);
+  const [lineList, setLineList] = useState<lineData[]>([]);
+  const [poseData, setPoseData] = useState<any>();
+  const [ratio, setRatio] = useState<number>();
+  const [result, setResult] = useState<number[]>([0, 0, 0, 0, 0]);
+
+  const [imgLoad, setImgLoad] = useState<boolean>(false);
+  const [img, setImg] = useState<string>();
+  const [canvas, setCanvas] = useState<HTMLCanvasElement>();
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const myRef = useRef<SVGSVGElement>(null);
+  var identifiables = new WeakMap<Object, number>();
+  var nextId = 1;
+
+  const assignId = (obj: Object) => {
+    let id = identifiables.get(obj);
+    if (id) return id;
+    id = nextId;
+    nextId += 1;
+    identifiables.set(obj, id);
+    return id;
+  };
+
+  const process_img = async () => {
+    const imageElement = document.getElementById("input");
+    const net = await posenet.load({
+      architectrue: "MovileNetV1",
+      outputStride: 16,
+      multiplier: 0.75,
+    });
+    const pose = await net.estimateSinglePose(imageElement, {
+      flipHorizontal: false,
+    });
+    setPoseData(pose);
+  };
+
+  useEffect(() => {
+    if (poseData) {
+      console.log(poseData);
+      setLoading(false);
+    }
+  }, [poseData]);
+
+  useEffect(() => {
+    const zone = document.getElementById("temp");
+    if (!imgLoad) {
+      zone.style.display = "none";
+    }
+    if (imgLoad) {
+      setLoading(true);
+      zone.style.display = "flex";
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      const canvas = document.getElementById(
+        "image_container"
+      )! as HTMLCanvasElement;
+      const ctx = canvas.getContext("2d")!;
+      const image = document.getElementById("input")! as HTMLImageElement;
+      const svgBox = document.getElementById("svg_box");
+      image.onload = () => {
+        canvas.width = image.width;
+        canvas.height = image.height;
+        svgBox.style.width = String(image.width);
+        svgBox.style.height = String(image.height);
+      };
+      process_img();
+    }
+  }, [imgLoad, img]);
+
   return (
     <>
       <Head>
         <title>Sizeyourself::회원가입::Step2</title>
+        <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/posenet"></script>
+        <script src="https://cdn.jsdelivr.net/npm/d3-require@1"></script>
       </Head>
       <Layout>
         <MainContent>
@@ -186,7 +304,15 @@ export default function two() {
               <div>
                 <h2>전신 사진 업로드</h2>
               </div>
-              <ImageBox></ImageBox>
+              {!imgLoad && (
+                <ImageZone setImgLoad={setImgLoad} setImg={setImg} />
+              )}
+              <ImgBox id="temp">
+                <canvas id="image_container" />
+                <svg ref={myRef} id="svg_box"></svg>
+                <img id="input" alt="input" src={img} />
+              </ImgBox>
+              <Submit>입력</Submit>
               <DataRow>
                 <p>키 입력</p>
                 <input placeholder="키를 입력해주세요" />
@@ -204,12 +330,8 @@ export default function two() {
                 </select>
               </DataRow>
               <ButtonRow>
-                <Link href="/signup/interlim">
-                  <a>사이즈 직접 입력하기</a>
-                </Link>
-                <Link href="/signup/interlim">
-                  <a>사이즈 측정하기</a>
-                </Link>
+                <button>사이즈 직접 입력하기</button>
+                <button>사이즈 측정하기</button>
               </ButtonRow>
               <div>
                 <p>사이즈를 직접 입력하고 싶으신가요?</p>
