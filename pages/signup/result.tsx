@@ -156,7 +156,7 @@ function TwoTwo({ router: { query } }) {
 
   const handleNew = (e) => {
     e.preventDefault();
-    console.log(user);
+    axios.post(`/api/signup`, { user: JSON.stringify(user) });
     // router.push({
     //   pathname: "/",
     // });
@@ -193,7 +193,7 @@ function TwoTwo({ router: { query } }) {
                   <img src="/images/test.svg" />
                 )}
                 {user && user.gender === "남자" && (
-                  <img src="/images/test.svg" />
+                  <img src="/images/dude.png" />
                 )}
               </Container>
               <h2>상세 사이즈</h2>
