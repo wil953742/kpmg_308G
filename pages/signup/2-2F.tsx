@@ -73,6 +73,7 @@ const Content = styled.div`
     text-align: center;
     margin-top: 21vh;
     margin-bottom: 21vh;
+    cursor: pointer;
   }
 
   a:hover {
@@ -215,6 +216,28 @@ const DupSizeTable = styled.div`
 
 export default function TwoTwoF() {
   const chestSize = ["AA", "A", "B", "C", "D", "E", "F", "G"];
+
+  const handleNext = (event) => {
+    event.preventDefault();
+    const tummy = (document.querySelector(
+      'input[name="tummy"]:checked'
+    ) as HTMLInputElement)?.value;
+    const size = (document.querySelector(
+      'input[name="size"]:checked'
+    ) as HTMLInputElement)?.value;
+    const cup = (document.querySelector(
+      'input[name="cup"]:checked'
+    ) as HTMLInputElement)?.value;
+    const hip = (document.querySelector(
+      'input[name="hip"]:checked'
+    ) as HTMLInputElement)?.value;
+    if (!(tummy && size && cup && hip)) {
+      alert("모두 선택해주세요.");
+      return;
+    }
+    console.log(tummy, size, cup, hip);
+  };
+
   return (
     <>
       <Head>
@@ -310,20 +333,9 @@ export default function TwoTwoF() {
                 <input type="radio" name="hip" id="wide" value="wide" />
                 <label htmlFor="wide">넓음</label>
               </ButtonRow>
-              {/* <Link href="/"> */}
-              <a
-                id="next"
-                onClick={() => {
-                  console.log(
-                    (document.querySelector(
-                      'input[name="size"]:checked'
-                    ) as HTMLInputElement).value
-                  );
-                }}
-              >
+              <button id="next" onClick={handleNext}>
                 다음
-              </a>
-              {/* </Link> */}
+              </button>
             </Content>
           </MainMargin>
         </MainContent>
