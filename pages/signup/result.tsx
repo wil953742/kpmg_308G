@@ -154,9 +154,16 @@ function TwoTwo({ router: { query } }) {
     }
   }, [user]);
 
-  const handleNew = (e) => {
+  const handleNew = async (e) => {
     e.preventDefault();
     console.log(user);
+
+    const res = await axios.post(`/api/signup`,
+    { user : JSON.stringify(user) });
+    
+    
+    
+    
     // router.push({
     //   pathname: "/",
     // });
