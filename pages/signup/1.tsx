@@ -2,7 +2,7 @@ import Head from "next/head";
 import Layout from "../../components/Layout";
 import styled from "styled-components";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 const MainContent = styled.div`
   display: flex;
@@ -163,9 +163,16 @@ const Radio = styled.div`
 `;
 
 export default function one() {
-  useEffect(() => {
-    console.log(document.getElementsByTagName("select"));
-  });
+  const router = useRouter();
+
+  const toNext = (e) => {
+    e.preventDefault();
+    router.push({
+      pathname: "/signup/2",
+      query: { random: "random" },
+    });
+  };
+
   return (
     <>
       <Head>
@@ -309,7 +316,9 @@ export default function one() {
                 만 14세 이상이며, 이용약관과 개인정보 수집 및 이용을 <br />
                 확인하였고 동의하십니까?
               </p>
-              <div id="submit">동의하고 회원가입</div>
+              <div id="submit" onClick={toNext}>
+                동의하고 회원가입
+              </div>
             </Content>
           </MainMargin>
         </MainContent>

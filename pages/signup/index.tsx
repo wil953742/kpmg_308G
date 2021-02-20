@@ -117,7 +117,6 @@ const Email = styled.a`
 `;
 
 export default function Signup() {
-  console.log(process.env);
   const hanldeUnfinished = (event) => {
     alert("서비스 준비 중입니다.");
   };

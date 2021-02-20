@@ -34,7 +34,6 @@ export const ImageZone = ({ setImgLoad, setImg }) => {
         fileInputRef.current.files &&
         validateFile(fileInputRef.current.files[0])
       ) {
-        console.log(fileInputRef);
         setImg(URL.createObjectURL(fileInputRef.current.files[0]));
         setImgLoad(true);
       }
@@ -43,7 +42,6 @@ export const ImageZone = ({ setImgLoad, setImg }) => {
   const fileDrop = (e: any) => {
     e.preventDefault();
     const files = e.dataTransfer.files;
-    console.log(files);
     if (files.length) {
       if (validateFile(files[0])) {
         setImg(URL.createObjectURL(files[0]));
