@@ -211,6 +211,7 @@ function one({ router: { query } }) {
       return;
     }
 
+<<<<<<< Updated upstream
     const user = new User();
 
     user.Id = userID;
@@ -220,6 +221,17 @@ function one({ router: { query } }) {
     user.Gender = gender;
     user.Phone = phoneFull;
     user.Email = email;
+=======
+    var user = {};
+
+    user["id"] = userID;
+    user["password"] = password;
+    user["username"] = username;
+    user["birthday"] = birthday;
+    user["gender"] = gender;
+    user["phone"] = phoneFull;
+    user["email"] = email;
+>>>>>>> Stashed changes
 
     router.push({
       pathname: "/signup/2",
