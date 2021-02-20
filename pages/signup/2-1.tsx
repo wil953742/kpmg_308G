@@ -168,7 +168,7 @@ function Interlim({ router: { query } }) {
     user["leg"] = leg;
 
     router.push({
-      pathname: "/signup/result",
+      pathname: `/signup/${sex}`,
       query: { query: JSON.stringify(user) },
     });
   };

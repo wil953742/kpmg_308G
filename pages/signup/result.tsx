@@ -121,6 +121,8 @@ const Button = styled.a`
 `;
 
 function TwoTwo({ router: { query } }) {
+  const axios = require("axios");
+
   const [user, setUser] = useState<any>();
   const router = useRouter();
 
@@ -155,9 +157,9 @@ function TwoTwo({ router: { query } }) {
   const handleNew = (e) => {
     e.preventDefault();
     console.log(user);
-    router.push({
-      pathname: "/",
-    });
+    // router.push({
+    //   pathname: "/",
+    // });
   };
 
   return (
