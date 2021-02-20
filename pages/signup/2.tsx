@@ -368,6 +368,7 @@ function two({ router: { query } }) {
     event.preventDefault();
     const values = checkInput();
     if (values) {
+      console.log(values);
     }
   };
 
@@ -406,7 +407,6 @@ function two({ router: { query } }) {
       setResult(result);
       setLineList([]);
       setNodeList([]);
-      console.log(result);
     }
   };
 

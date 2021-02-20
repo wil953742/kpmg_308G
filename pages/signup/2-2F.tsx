@@ -288,7 +288,7 @@ export default function TwoTwoF() {
                   {[...chestSize].map((key) => {
                     return (
                       <>
-                        <input type="radio" name="size" id={key} value={key} />
+                        <input type="radio" name="cup" id={key} value={key} />
                         <label htmlFor={key}>{key}</label>
                       </>
                     );

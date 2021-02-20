@@ -2,7 +2,8 @@ import styled from "styled-components";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import Router from 'next/router';
+import Router from "next/router";
+import { useEffect } from "react";
 
 const axios = require("axios");
 
@@ -148,19 +149,16 @@ export const Login = ({ setToggleSignIn }) => {
       return;
     }
     const checkbox = document.getElementById("save") as HTMLInputElement;
-    console.log("체크박스 : " + checkbox.checked);
 
     event.preventDefault();
     const url = `/api/login?id=${userID}&password=${password}`;
     const res = await axios.get(url);
-    console.log(res);
 
-    if(res.data.length == 0) {
-      alert('아이디 또는 패스워드를 확인해 주세요');
-    } else if(res.data.Password != password) {
-      alert('아이디 또는 패스워드를 확인해 주세요')
+    if (res.data.length == 0) {
+      alert("아이디 또는 패스워드를 확인해 주세요");
+    } else if (res.data.Password != password) {
+      alert("아이디 또는 패스워드를 확인해 주세요");
     } else {
-      
       let loginInfo = {
         Id: res.data.Id,
         Password: res.data.Password,
@@ -168,15 +166,17 @@ export const Login = ({ setToggleSignIn }) => {
         Firstname: res.data.Firstname,
         Birthday: res.data.Birthday,
         Gender: res.data.Gender,
-        Phone: res.data.Phone
-      }; 
+        Phone: res.data.Phone,
+      };
 
-      if(checkbox.checked){
+      if (checkbox.checked) {
         localStorage.setItem("user", JSON.stringify(loginInfo));
+      } else {
+        sessionStorage.setItem("user", JSON.stringify(loginInfo));
       }
-
+      console.log(loginInfo);
       setToggleSignIn(false);
-      Router.push(`/?username=${loginInfo.Lastname}`, '/')
+      Router.push(`/?username=${loginInfo.Lastname}`);
     }
   };
 
@@ -225,7 +225,7 @@ export const Login = ({ setToggleSignIn }) => {
             </button>
             <div id="last">
               <div>
-                <input type="checkbox" id="save"/>
+                <input type="checkbox" id="save" />
                 <p
                   style={{
                     marginLeft: "5px",

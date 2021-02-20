@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Link from "next/link";
 import { useState } from "react";
 import { Login } from "../components/Login";
+import { useEffect } from "react";
 
 const Navi = styled.nav`
   display: flex;
@@ -102,22 +103,29 @@ const Navi = styled.nav`
 `;
 
 export const Nav = () => {
-  const [lang, setLang] = useState<string>("ko-KR");
   const [toggleSignIn, setToggleSignIn] = useState<boolean>(false);
+  const [user, setUser] = useState<any>(null);
 
-  //localstorage 불러오는 코드 짜고 데이터 있으면 없애고 없으면 있애고
-
-  if(typeof window !== 'undefined'){
-    const user = localStorage.getItem('user')
-    const loginInfo = JSON.parse(user);
-
-    if(loginInfo == null){
-      console.log("nothing in localStorage")
+  useEffect(() => {
+    let user = localStorage.getItem("user");
+    if (!user) {
+      user = sessionStorage.getItem("user");
     }
-    else {
-      console.log('this is local storage : ' + loginInfo);
+    if (user) {
+      setUser(JSON.parse(user));
     }
-  }
+  }, [toggleSignIn]);
+
+  const handleLoginOrOut = (event) => {
+    event.preventDefault();
+    if (user) {
+      localStorage.clear();
+      sessionStorage.clear();
+      location.reload();
+    } else {
+      setToggleSignIn(true);
+    }
+  };
 
   return (
     <>
@@ -156,21 +164,20 @@ export const Nav = () => {
           </div>
         </div>
         <div className="right">
-          <div
-            style={{ cursor: "pointer" }}
-            onClick={() => setToggleSignIn(true)}
-          >
+          <div style={{ cursor: "pointer" }} onClick={handleLoginOrOut}>
             <img src="/images/login.svg" alt="login" />
-            <p>로그인</p>
+            <p>{user ? "로그아웃" : "로그인"}</p>
           </div>
-          <div>
-            <Link href="/signup">
-              <a>
-                <img src="/images/signup.svg" alt="login" />
-                <p>회원가입</p>
-              </a>
-            </Link>
-          </div>
+          {!user && (
+            <div>
+              <Link href="/signup">
+                <a>
+                  <img src="/images/signup.svg" alt="login" />
+                  <p>회원가입</p>
+                </a>
+              </Link>
+            </div>
+          )}
           <a
             style={{ cursor: "pointer" }}
             onClick={() => alert("서비스 준비중입니다.")}
