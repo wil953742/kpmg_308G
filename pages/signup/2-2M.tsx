@@ -2,6 +2,8 @@ import Head from "next/head";
 import Layout from "../../components/Layout";
 import styled from "styled-components";
 import Link from "next/link";
+import { useState, useEffect } from 'react';
+import { withRouter, useRouter } from 'next/router';
 
 const MainContent = styled.div`
   display: flex;
@@ -126,7 +128,7 @@ const ButtonRow = styled.div`
   }
 `;
 
-export default function TwoTwo() {
+function TwoTwo() {
   return (
     <>
       <Head>
@@ -203,3 +205,5 @@ export default function TwoTwo() {
     </>
   );
 }
+
+export default withRouter(TwoTwo)

@@ -2,6 +2,8 @@ import Head from "next/head";
 import Layout from "../../components/Layout";
 import styled from "styled-components";
 import Link from "next/link";
+import { useState, useEffect } from 'react';
+import { withRouter, useRouter } from 'next/router';
 
 const MainContent = styled.div`
   display: flex;
@@ -163,7 +165,7 @@ const TextBox = styled.div`
   }
 `;
 
-export default function two() {
+function two() {
   return (
     <>
       <Head>
@@ -351,3 +353,5 @@ export default function two() {
     </>
   );
 }
+
+export default withRouter(two)

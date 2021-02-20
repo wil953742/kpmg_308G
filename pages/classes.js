@@ -1,8 +1,8 @@
 class User {
-    constructor( Id, Password, Username, Firstname, Birthday, Gender, Phone, Email,
-        Bodykey, Checkday, Height = '', Weight = '', Upper, Shoulder, Arm, Waist, Leg,
-        Fit, Brand, Vibe, Type, Esg, Chest, Tummy,
-        Bra_size, Bra_cup, Hip = '') {
+    constructor( Id = '', Password= '', Username= '', Firstname= '', Birthday= '', Gender= '', Phone= '', Email= '',
+        Bodykey= '', Checkday= '', Height = '', Weight = '', Upper= '', Shoulder= '', Arm= '', Waist= '', Leg= '',
+        Fit= '', Brand= '', Vibe= '', Type= '', Esg= '', Chest= '', Tummy= '',
+        Bra_size= '', Bra_cup= '', Hip = '') {
             this.Id = Id;
             this.Password = Password;
             this.Username = Username; 

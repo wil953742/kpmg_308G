@@ -2,6 +2,8 @@ import Head from "next/head";
 import Layout from "../../components/Layout";
 import styled from "styled-components";
 import Link from "next/link";
+import { useState, useEffect } from 'react';
+import { withRouter, useRouter } from 'next/router';
 
 const MainContent = styled.div`
   display: flex;
@@ -121,7 +123,45 @@ const NextButton = styled.a`
   width: 100%;
 `;
 
-export default function Interlim() {
+function Interlim({router : {query}}) {
+  
+  if(typeof query.query == 'undefined'){
+    const router = useRouter();
+    useEffect(()=>{
+      router.push('/');
+    }, []);
+  }
+
+  const [upper, setUpper] = useState<Number>();
+  const [shoulder, setShoulder] = useState<Number>();
+  const [arm, setArm] = useState<Number>();
+  const [waist, setWaist] = useState<Number>();
+  const [leg, setLeg] = useState<Number>();
+  const [sex, setSex] = useState<String>('2-2M')
+  const [user, setUser] = useState<any>();
+
+  useEffect(()=>{
+    setUser(JSON.parse(query.query));
+  }, []);
+
+  useEffect(()=>{
+    if (user) {
+      if(user.Gender == '여자'){
+        setSex('2-2F');
+      }
+    }
+  }, [user])
+
+  useEffect(()=>{
+    if (upper && shoulder && arm && waist && leg){
+    user.Upper = upper;
+    user.Shoulder = shoulder;
+    user.Arm = arm;
+    user.Waist = waist;
+    user.Leg = leg;
+    }
+  }, [upper, shoulder, arm, waist, leg])
+
   return (
     <>
       <Head>
@@ -168,32 +208,32 @@ export default function Interlim() {
               <Result>
                 <DataRow>
                   <p>상체총장</p>
-                  <input placeholder="여기에 입력해주세요" />
+                  <input placeholder="여기에 입력해주세요" value={user?.Upper} onChange={(e)=>setUpper(parseInt(e.target.value))}/>
                   <p>cm</p>
                 </DataRow>
                 <DataRow>
                   <p>어깨너비</p>
-                  <input placeholder="여기에 입력해주세요" />
+                  <input placeholder="여기에 입력해주세요" value={user?.Shoulder} onChange={(e)=>setShoulder(parseInt(e.target.value))}/>
                   <p>cm</p>
                 </DataRow>
                 <DataRow>
                   <p>소매길이</p>
-                  <input placeholder="여기에 입력해주세요" />
+                  <input placeholder="여기에 입력해주세요" value={user?.Arm} onChange={(e)=>setArm(parseInt(e.target.value))}/>
                   <p>cm</p>
                 </DataRow>
                 <DataRow>
                   <p>허리단면</p>
-                  <input placeholder="여기에 입력해주세요" />
+                  <input placeholder="여기에 입력해주세요" value={user?.Waist} onChange={(e)=>setWaist(parseInt(e.target.value))}/>
                   <p>cm</p>
                 </DataRow>
                 <DataRow>
                   <p>하체총장</p>
-                  <input placeholder="여기에 입력해주세요" />
+                  <input placeholder="여기에 입력해주세요" value={user?.Leg} onChange={(e)=>setLeg(parseInt(e.target.value))}/>
                   <p>cm</p>
                 </DataRow>
               </Result>
               <div>
-                <Link href="/">
+                <Link href={{pathname: `/signup/${sex}`, query : { query : JSON.stringify(user) }}}>
                   <NextButton>다음</NextButton>
                 </Link>
               </div>
@@ -204,3 +244,5 @@ export default function Interlim() {
     </>
   );
 }
+
+export default withRouter(Interlim);

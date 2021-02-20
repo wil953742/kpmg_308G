@@ -2,6 +2,8 @@ import Head from "next/head";
 import Layout from "../../components/Layout";
 import styled from "styled-components";
 import Link from "next/link";
+import { useState, useEffect } from 'react';
+import { withRouter, useRouter } from 'next/router';
 
 const MainContent = styled.div`
   display: flex;
@@ -213,7 +215,7 @@ const DupSizeTable = styled.div`
   }
 `;
 
-export default function TwoTwoF() {
+function TwoTwoF({router : {query}}) {
   const chestSize = ["AA", "A", "B", "C", "D", "E", "F", "G"];
   return (
     <>
@@ -288,7 +290,7 @@ export default function TwoTwoF() {
                   {[...chestSize].map((key) => {
                     return (
                       <>
-                        <input type="radio" name="size" id={key} value={key} />
+                        <input type="radio" name="cup" id={key} value={key} />
                         <label htmlFor={key}>{key}</label>
                       </>
                     );
@@ -320,3 +322,5 @@ export default function TwoTwoF() {
     </>
   );
 }
+
+export default withRouter(TwoTwoF);

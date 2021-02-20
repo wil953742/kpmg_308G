@@ -376,6 +376,9 @@ function two({ router: { query } }) {
     const values = checkInput();
     if (values) {
     }
+
+    var result: number[] = [];
+    nextPage(result);
   };
 
   const handleNext = (event) => {
@@ -405,28 +408,41 @@ function two({ router: { query } }) {
       const upper2 = ratio * getYDistance("#rightShoulder", "#rightHip");
       const upper = (upper1 + upper2) / 2;
       var result: number[] = [];
-      result[0] = upper;
-      result[1] = shoulder;
-      result[2] = arm;
-      result[3] = waist;
-      result[4] = leg;
+      result[0] = parseInt(upper.toFixed(1));
+      result[1] = parseInt(shoulder.toFixed(1));
+      result[2] = parseInt(arm.toFixed(1));
+      result[3] = parseInt(waist.toFixed(1));
+      result[4] = parseInt(leg.toFixed(1));
       setResult(result);
       setLineList([]);
       setNodeList([]);
-      console.log(result);      
+      console.log(result); 
+
+      nextPage(result);
     }
   };
 
-  const nextPage = () => {
-    
+  const nextPage = (result) => {
+    const user = JSON.parse(query.query);
+
+    user.Height = height;
+    user.Weight = weight;
+    console.log("height ! : " + height);
+    //console.log("obj ! : " + Object.getOwnPropertyNames(user));
+
+    if(result.length > 0){
+      user.Upper = result[0];
+      user.Shoulder = result[1];
+      user.Arm = result[2];
+      user.Waist = result[3];
+      user.Leg = result[4];
+    }
+
+    router.push({
+      pathname: "/signup/2-1",
+      query: { query : JSON.stringify(user) },
+    })
   }
-
-  useEffect(()=> {
-    const user = query.query;
-    console.log(user)
-    
-
-  }, [height, weight])
 
   const calcHeight = (event) => {
     event.preventDefault();
