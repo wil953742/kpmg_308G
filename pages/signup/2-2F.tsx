@@ -310,9 +310,20 @@ export default function TwoTwoF() {
                 <input type="radio" name="hip" id="wide" value="wide" />
                 <label htmlFor="wide">넓음</label>
               </ButtonRow>
-              <Link href="/">
-                <a id="next">다음</a>
-              </Link>
+              {/* <Link href="/"> */}
+              <a
+                id="next"
+                onClick={() => {
+                  console.log(
+                    (document.querySelector(
+                      'input[name="size"]:checked'
+                    ) as HTMLInputElement).value
+                  );
+                }}
+              >
+                다음
+              </a>
+              {/* </Link> */}
             </Content>
           </MainMargin>
         </MainContent>
