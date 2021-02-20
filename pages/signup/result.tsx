@@ -200,7 +200,7 @@ function TwoTwo({ router: { query } }) {
                   <img src="/images/test.svg" />
                 )}
                 {user && user.gender === "남자" && (
-                  <img src="/images/test.svg" />
+                  <img src="/images/dude.png" />
                 )}
               </Container>
               <h2>상세 사이즈</h2>

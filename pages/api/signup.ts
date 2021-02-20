@@ -44,7 +44,7 @@ const handler: NextApiHandler = async (req, res) => {
     await query(
       `INSERT INTO 'DB_308G'.'PREFERENCE' ('Preferencekey', 'Id', 'Fit', 'Brand', 'Vibe', 'Type', 'Esg')\
       VALUES (null, '${password}', '${lastname}', '${firstname}', '${firstname}', '${firstname}', '${firstname}');`
-      );
+    );
 
     return null;
   } catch (e) {
