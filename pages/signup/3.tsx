@@ -165,7 +165,23 @@ const TextBox = styled.div`
   }
 `;
 
-function two() {
+function two({router : {query}}) {
+
+  if(typeof query.query == 'undefined'){
+    const router = useRouter();
+    useEffect(()=>{
+      router.push('/');
+    }, []);
+  }
+  
+  const [user, setUser] = useState<any>();
+
+  useEffect(()=>{
+    if(user){
+      setUser(JSON.parse(query.query));
+    }
+  }, [])
+
   return (
     <>
       <Head>

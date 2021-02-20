@@ -408,11 +408,11 @@ function two({ router: { query } }) {
       const upper2 = ratio * getYDistance("#rightShoulder", "#rightHip");
       const upper = (upper1 + upper2) / 2;
       var result: number[] = [];
-      result[0] = parseInt(upper.toFixed(1));
-      result[1] = parseInt(shoulder.toFixed(1));
-      result[2] = parseInt(arm.toFixed(1));
-      result[3] = parseInt(waist.toFixed(1));
-      result[4] = parseInt(leg.toFixed(1));
+      result[0] = parseInt(upper.toFixed(3));
+      result[1] = parseInt(shoulder.toFixed(3));
+      result[2] = parseInt(arm.toFixed(3));
+      result[3] = parseInt(waist.toFixed(3));
+      result[4] = parseInt(leg.toFixed(3));
       setResult(result);
       setLineList([]);
       setNodeList([]);

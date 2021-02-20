@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Link from "next/link";
 import { useState, useEffect } from 'react';
 import { withRouter, useRouter } from 'next/router';
-import { User } from '../classes.js';
+import { User } from '../../lib/classes.js';
 
 const MainContent = styled.div`
   display: flex;

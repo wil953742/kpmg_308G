@@ -128,7 +128,39 @@ const ButtonRow = styled.div`
   }
 `;
 
-function TwoTwo() {
+function TwoTwo({router : {query}}) {
+
+  if(typeof query.query == 'undefined'){
+    const router = useRouter();
+    useEffect(()=>{
+      router.push('/');
+    }, []);
+  }
+
+  const [user, setUser] = useState<any>();
+  const [tummy, setTummy] = useState<String>();
+  const [chest, setChest] = useState<String>();
+
+  useEffect(()=>{
+    if(user){
+      setUser(JSON.parse(query.query));
+    }
+  }, [])
+
+  useEffect(()=>{
+    if(tummy && chest){
+      user.Tummy = tummy;
+      user.Chest = chest;
+    }
+
+    const checked = (document.querySelector(
+      'input[name="size"]:checked'
+    ) as HTMLInputElement).value;
+
+    console.log('ck : ' + checked);
+    
+  }, [tummy, chest])
+
   return (
     <>
       <Head>
@@ -195,7 +227,7 @@ function TwoTwo() {
                 <input type="radio" name="tummy" id="fat" value="fat" />
                 <label htmlFor="fat">통통</label>
               </ButtonRow>
-              <Link href="/">
+              <Link href={{pathname: `/signup/3`, query : { query : JSON.stringify(user) }}}>
                 <a id="next">다음</a>
               </Link>
             </Content>

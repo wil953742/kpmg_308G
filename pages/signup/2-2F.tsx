@@ -216,6 +216,44 @@ const DupSizeTable = styled.div`
 `;
 
 function TwoTwoF({router : {query}}) {
+
+  if(typeof query.query == 'undefined'){
+    const router = useRouter();
+    useEffect(()=>{
+      router.push('/');
+    }, []);
+  }
+
+  const [user, setUser] = useState<any>();
+  const [tummy, setTummy] = useState<String>();
+  const [brasize, setBrasize] = useState<String>();
+  const [bracup, setBracup] = useState<String>();
+  const [hip, setHip] = useState<String>();
+
+  useEffect(()=>{
+    if(user){
+      setUser(JSON.parse(query.query));
+    }
+    
+  }, [])
+
+  useEffect(()=>{
+    if(tummy && brasize && bracup && hip){
+
+      user.Tummy = tummy;
+      user.Bra_size = brasize;
+      user.Bra_cup = bracup;
+      user.Hip = hip;
+    }
+
+    const c = document.querySelector(
+      'input[name="size"]:checked'
+    ) as HTMLInputElement
+
+    console.log('ck : ' + c);
+
+  }, [tummy, brasize, bracup, hip]);
+
   const chestSize = ["AA", "A", "B", "C", "D", "E", "F", "G"];
   return (
     <>
@@ -256,7 +294,7 @@ function TwoTwoF({router : {query}}) {
                 <img src="/images/belly_woman.png" />
               </ImageBox>
               <ButtonRow>
-                <input type="radio" name="tummy" id="slim" value="slim" />
+                <input type="radio" name="tummy" id="slim" value="slim" onClick={(e)=>{}}/>
                 <label htmlFor="slim">마름</label>
                 <input
                   type="radio"
@@ -312,7 +350,7 @@ function TwoTwoF({router : {query}}) {
                 <input type="radio" name="hip" id="wide" value="wide" />
                 <label htmlFor="wide">넓음</label>
               </ButtonRow>
-              <Link href="/">
+              <Link href={{pathname: `/signup/3`, query : { query : JSON.stringify(user) }}}>
                 <a id="next">다음</a>
               </Link>
             </Content>
