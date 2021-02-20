@@ -104,6 +104,20 @@ export const Nav = () => {
   const [lang, setLang] = useState<string>("ko-KR");
   const [toggleSignIn, setToggleSignIn] = useState<boolean>(false);
 
+  //localstorage 불러오는 코드 짜고 데이터 있으면 없애고 없으면 있애고
+
+  if(typeof window !== 'undefined'){
+    const user = localStorage.getItem('user')
+    const loginInfo = JSON.parse(user);
+
+    if(loginInfo == null){
+      console.log("nothing in localStorage")
+    }
+    else {
+      console.log('this is local storage : ' + loginInfo);
+    }
+  }
+
   return (
     <>
       {toggleSignIn && <Login setToggleSignIn={setToggleSignIn} />}

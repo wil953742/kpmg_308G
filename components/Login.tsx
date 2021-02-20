@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import Router from 'next/router';
 
 const axios = require("axios");
 
@@ -136,7 +137,7 @@ export const Login = ({ setToggleSignIn }) => {
   const [userID, setUserId] = useState<string>();
   const [password, setPassword] = useState<string>();
 
-  const login = () => {
+  const handleLogin = async (event) => {
     if (!userID) {
       alert("아이디를 입력해주세요.");
       return;
@@ -146,13 +147,36 @@ export const Login = ({ setToggleSignIn }) => {
       return;
     }
     const checkbox = document.getElementById("save") as HTMLInputElement;
-    handleLogin;
-  };
+    console.log("체크박스 : " + checkbox.checked);
 
-  const handleLogin = async (event) => {
     event.preventDefault();
     const url = `/api/login?id=${userID}&password=${password}`;
     const res = await axios.get(url);
+    console.log(res);
+
+    if(res.data.length == 0) {
+      alert('아이디 또는 패스워드를 확인해 주세요');
+    } else if(res.data.Password != password) {
+      alert('아이디 또는 패스워드를 확인해 주세요')
+    } else {
+      
+      let loginInfo = {
+        Id: res.data.Id,
+        Password: res.data.Password,
+        Lastname: res.data.Lastname,
+        Firstname: res.data.Firstname,
+        Birthday: res.data.Birthday,
+        Gender: res.data.Gender,
+        Phone: res.data.Phone
+      }; 
+
+      if(checkbox.checked){
+        localStorage.setItem("user", JSON.stringify(loginInfo));
+      }
+
+      setToggleSignIn(false);
+      Router.push(`/?username=${loginInfo.Lastname}`, '/')
+    }
   };
 
   return (
@@ -195,12 +219,12 @@ export const Login = ({ setToggleSignIn }) => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <button id="login-btn" onClick={() => login()}>
+            <button id="login-btn" onClick={handleLogin}>
               로그인
             </button>
             <div id="last">
               <div>
-                <input type="checkbox" id="save" />
+                <input type="checkbox" id="save"/>
                 <p
                   style={{
                     marginLeft: "5px",

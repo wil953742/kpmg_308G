@@ -2,6 +2,8 @@ import Head from "next/head";
 import Layout from "../../components/Layout";
 import styled from "styled-components";
 import Link from "next/link";
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 const MainContent = styled.div`
   display: flex;
@@ -161,7 +163,35 @@ const Radio = styled.div`
   }
 `;
 
-export default function one() {
+export default function one(props) {
+                          
+  const [username, setUsername] = useState<String>();
+  const [phone, setPhone] = useState<String>();
+  const [email, setEmail] = useState<String>();
+  const [userID, setUserId] = useState<String>();
+  const [password, setPassword] = useState<String>();
+  const [passcheck, setPasscheck] = useState<String>();
+  const router = useRouter();
+
+
+  if(props){
+    console.log('props : ' +props.constructor.name);
+  } else {
+    useEffect(()=> {
+      router.push('/');
+    }, []);
+    //window.location.href = "http://localhost:3000/signup";
+  }
+  
+  const submit = () => {
+    const selectValue = document.getElementsByTagName("select") as HTMLCollection;
+    console.log(selectValue.constructor.name);
+
+    for(var key in selectValue) {
+      console.log("key : " + key + " value : " + selectValue[key]);
+    } 
+  }
+
   return (
     <>
       <Head>
@@ -190,7 +220,9 @@ export default function one() {
               <h1>회원가입</h1>
               <div className="input-box">
                 <p>이름</p>
-                <input type="text" className="one" />
+                <input type="text" className="one" onChange={(e) => {
+                  setUsername(e.target.value);
+                }} />
               </div>
               <div className="input-box">
                 <p>나이</p>
@@ -229,19 +261,25 @@ export default function one() {
                   <select>
                     <option>010</option>
                   </select>
-                  <input type="text" placeholder="'-'표 없이 입력해주세요" />
+                  <input type="text" placeholder="'-'표 없이 입력해주세요" onChange={(e) => {
+                  setPhone(e.target.value);
+                }}/>
                 </div>
               </div>
               <div className="input-box">
                 <p>이메일</p>
-                <input type="text" className="one" />
+                <input type="text" className="one" onChange={(e) => {
+                  setEmail(e.target.value);
+                }} />
               </div>
               <div className="input-box">
                 <p>아이디</p>
                 <input
                   type="text"
                   className="one"
-                  placeholder="6자 이상 영문, 숫자 입력 가능"
+                  placeholder="6자 이상 영문, 숫자 입력 가능" onChange={(e) => {
+                    setUserId(e.target.value);
+                  }}
                 />
               </div>
               <div className="input-box">
@@ -305,7 +343,7 @@ export default function one() {
                 만 14세 이상이며, 이용약관과 개인정보 수집 및 이용을 <br />
                 확인하였고 동의하십니까?
               </p>
-              <div id="submit">동의하고 회원가입</div>
+              <div id="submit" onClick={submit}>동의하고 회원가입</div>
             </Content>
           </MainMargin>
         </MainContent>
