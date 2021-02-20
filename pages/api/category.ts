@@ -1,15 +1,15 @@
 import { NextApiHandler } from "next";
-import { query } from "../../../../lib/db";
+import { query } from "../../lib/db";
 
 const handler: NextApiHandler = async (req, res) => {
-  const id = req.query.id;
+  const { name } = req.query;
   try {
     const results = await query(
       `
-      SELECT UPPER, SHOULDER, ARM, WAIST, LEG
-      FROM BODY, ACCOUNT
-      WHERE ACCOUNT.ID='${id}' AND ACCOUNT.ID = BODY.ID
-    `
+          SELECT CATEGORY.VALUES
+          FROM CATEGORY
+          WHERE NAME='${name}'
+      `
     );
     return res.json(results[0]);
   } catch (e) {

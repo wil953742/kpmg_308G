@@ -236,10 +236,10 @@ function two({ router: { query } }) {
 
   const [calculated, setCalculated] = useState<boolean>(false);
 
-  if(typeof query.query == 'undefined'){
+  if (typeof query.query == "undefined") {
     const router = useRouter();
-    useEffect(()=>{
-      router.push('/');
+    useEffect(() => {
+      router.push("/");
     }, []);
   }
 
@@ -375,6 +375,7 @@ function two({ router: { query } }) {
     event.preventDefault();
     const values = checkInput();
     if (values) {
+      console.log(values);
     }
 
     var result: number[] = [];

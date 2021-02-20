@@ -138,8 +138,6 @@ function TwoTwo({router : {query}}) {
   }
 
   const [user, setUser] = useState<any>();
-  const [tummy, setTummy] = useState<String>();
-  const [chest, setChest] = useState<String>();
 
   useEffect(()=>{
     if(user){
@@ -147,19 +145,25 @@ function TwoTwo({router : {query}}) {
     }
   }, [])
 
-  useEffect(()=>{
-    if(tummy && chest){
-      user.Tummy = tummy;
-      user.Chest = chest;
-    }
-
-    const checked = (document.querySelector(
-      'input[name="size"]:checked'
-    ) as HTMLInputElement).value;
-
-    console.log('ck : ' + checked);
+  const handleNext = (event) => {
+    event.preventDefault();
+    const chest = (document.querySelector(
+      'input[name="chest"]:checked'
+    ) as HTMLInputElement)?.value;
+    const tummy = (document.querySelector(
+      'input[name="tummy"]:checked'
+    ) as HTMLInputElement)?.value;
     
-  }, [tummy, chest])
+    user.Tummy = tummy;
+    user.Chest = chest;
+
+    const router = useRouter();
+    
+    router.push({
+      pathname: "/signup/3",
+      query: { query: JSON.stringify(user) },
+    });
+  };
 
   return (
     <>
@@ -227,9 +231,9 @@ function TwoTwo({router : {query}}) {
                 <input type="radio" name="tummy" id="fat" value="fat" />
                 <label htmlFor="fat">통통</label>
               </ButtonRow>
-              <Link href={{pathname: `/signup/3`, query : { query : JSON.stringify(user) }}}>
-                <a id="next">다음</a>
-              </Link>
+              <button id="next" onClick={handleNext}>
+                다음
+              </button>
             </Content>
           </MainMargin>
         </MainContent>

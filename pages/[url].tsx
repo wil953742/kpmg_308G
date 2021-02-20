@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Layout from "../components/Layout";
 import styled from "styled-components";
-import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const MainContent = styled.div`
   display: flex;
@@ -246,6 +246,69 @@ const Card = styled.div`
 `;
 
 export default function TwoTwo() {
+  const axios = require("axios");
+  const [url, setUrl] = useState<string>();
+  const [category, setCategory] = useState<any>();
+  const [size, setSize] = useState<any>();
+  const [value, setValue] = useState<any>();
+  const [user, setUser] = useState<any>();
+  const [body, setBody] = useState<string[]>();
+
+  const temp = "후드 집업";
+  let data = [
+    ["S", "65", "46.5", "52", "61"],
+    ["M", "67", "48.5", "54.5", "63"],
+    ["L", "68.5", "50", "57", "64"],
+    ["XL", "70", "51.5", "59.5", "65"],
+    ["XXL", "71.5", "53", "62", "66"],
+  ];
+
+  useEffect(() => {
+    let user = localStorage.getItem("user");
+    if (!user) {
+      user = sessionStorage.getItem("user");
+    }
+    if (user) {
+      setUser(JSON.parse(user));
+    }
+    setUrl(location.pathname.slice(1));
+    fetchCategory();
+  }, []);
+
+  useEffect(() => {
+    if (user) {
+      fetchBodySize();
+    }
+  }, [user]);
+
+  const fetchBodySize = async () => {
+    const api = `api/user/${user.Id}/size`;
+    const res = await axios.get(api);
+    var temp = [];
+    for (const property in res.data) {
+      temp.push(res.data[property]);
+    }
+    setBody(temp);
+  };
+
+  const fetchCategory = async () => {
+    const api = `api/category?name=${temp}`;
+    const res = await axios.get(api);
+    var sizes = [];
+    var values = [];
+    for (let i = 0; i < data.length; i++) {
+      sizes.push(data[i][0]);
+      let temp = [];
+      for (let j = 1; j < data[i].length; j++) {
+        temp.push(data[i][j]);
+      }
+      values.push(temp);
+    }
+    setSize(sizes);
+    setValue(values);
+    setCategory(JSON.parse(res.data.VALUES).values);
+  };
+
   return (
     <>
       <Head>
@@ -258,7 +321,7 @@ export default function TwoTwo() {
               <h1>SIZEYOURSELF</h1>
               <div id="url">
                 <p>지금 피팅 중인 옷</p>
-                <input type="text" value="urlrulrurlrulrurl" disabled />
+                <input type="text" value={url} disabled />
               </div>
               <Middle>
                 <div id="left">
@@ -270,48 +333,28 @@ export default function TwoTwo() {
                   <p>추천 사이즈가 푸른색으로 표시 됩니다</p>
                   <div id="top">
                     <p>{""}</p>
-                    <p>상체총장</p>
-                    <p>어깨너비</p>
-                    <p>소매길이</p>
-                    <p>허리단면</p>
-                    <p>하체총장</p>
+                    {category &&
+                      category.map((key) => {
+                        return <p>{key}</p>;
+                      })}
                   </div>
-                  <Row recommended>
-                    <div id="size">
-                      <p>S</p>
-                    </div>
-                    <div id="in">
-                      <p>67</p>
-                      <p>67</p>
-                      <p>67</p>
-                      <p>67</p>
-                      <p>67</p>
-                    </div>
-                  </Row>
-                  <Row>
-                    <div id="size">
-                      <p>M</p>
-                    </div>
-                    <div id="in">
-                      <p>67</p>
-                      <p>67</p>
-                      <p>67</p>
-                      <p>67</p>
-                      <p>67</p>
-                    </div>
-                  </Row>
-                  <Row>
-                    <div id="size">
-                      <p>M</p>
-                    </div>
-                    <div id="in">
-                      <p>67</p>
-                      <p>67</p>
-                      <p>67</p>
-                      <p>67</p>
-                      <p>67</p>
-                    </div>
-                  </Row>
+                  {size &&
+                    value &&
+                    size.map((key, index) => {
+                      return (
+                        <Row>
+                          <div id="size">
+                            <p>{key}</p>
+                          </div>
+                          <div id="in">
+                            {value[index].map((key) => {
+                              return <p>{key}</p>;
+                            })}
+                          </div>
+                        </Row>
+                      );
+                    })}
+
                   <h2>나의 상세 사이즈</h2>
                   <Size>
                     <div
@@ -337,21 +380,14 @@ export default function TwoTwo() {
                       </div>
                     </div>
                     <div id="last">
-                      <div>
-                        <p>67</p>
-                      </div>
-                      <div>
-                        <p>67</p>
-                      </div>
-                      <div>
-                        <p>67</p>
-                      </div>
-                      <div>
-                        <p>67</p>
-                      </div>
-                      <div>
-                        <p>67</p>
-                      </div>
+                      {body &&
+                        body.map((key) => {
+                          return (
+                            <div>
+                              <p>{key}</p>
+                            </div>
+                          );
+                        })}
                     </div>
                   </Size>
                 </div>

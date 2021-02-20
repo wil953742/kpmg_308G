@@ -3,6 +3,7 @@ import Layout from "../components/Layout";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { useRouter } from "next/router";
 
 const MainContent = styled.div`
   display: flex;
@@ -121,12 +122,32 @@ const Footer = styled.footer`
 
 const Home = () => {
   const [rotation, setRotation] = useState<boolean>(true);
+  const [url, setUrl] = useState<string>();
+
+  const router = useRouter();
 
   useEffect(() => {
     setTimeout(function () {
       setRotation(!rotation);
     }, 5000);
   });
+
+  const handleSubmit = (e) => {
+    let user = localStorage.getItem("user");
+    if (!user) {
+      user = sessionStorage.getItem("user");
+    }
+    if (user) {
+      e.preventDefault();
+      router.push({
+        pathname: "/[url]",
+        query: { url: url },
+      });
+    } else {
+      alert("먼저 로그인을 해주세요.");
+      return;
+    }
+  };
 
   return (
     <>
@@ -169,8 +190,10 @@ const Home = () => {
               className="search"
               type="text"
               placeholder="링크를 입력해 주세요"
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
             />
-            <div id="box">
+            <div id="box" style={{ cursor: "pointer" }} onClick={handleSubmit}>
               <img src="/images/search.svg" alt="search" />
             </div>
           </div>

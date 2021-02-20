@@ -75,6 +75,7 @@ const Content = styled.div`
     text-align: center;
     margin-top: 21vh;
     margin-bottom: 21vh;
+    cursor: pointer;
   }
 
   a:hover {
@@ -225,36 +226,47 @@ function TwoTwoF({router : {query}}) {
   }
 
   const [user, setUser] = useState<any>();
-  const [tummy, setTummy] = useState<String>();
-  const [brasize, setBrasize] = useState<String>();
-  const [bracup, setBracup] = useState<String>();
-  const [hip, setHip] = useState<String>();
 
   useEffect(()=>{
     if(user){
       setUser(JSON.parse(query.query));
     }
-    
   }, [])
 
-  useEffect(()=>{
-    if(tummy && brasize && bracup && hip){
-
-      user.Tummy = tummy;
-      user.Bra_size = brasize;
-      user.Bra_cup = bracup;
-      user.Hip = hip;
-    }
-
-    const c = document.querySelector(
-      'input[name="size"]:checked'
-    ) as HTMLInputElement
-
-    console.log('ck : ' + c);
-
-  }, [tummy, brasize, bracup, hip]);
-
   const chestSize = ["AA", "A", "B", "C", "D", "E", "F", "G"];
+
+  const handleNext = (event) => {
+    event.preventDefault();
+    const tummy = (document.querySelector(
+      'input[name="tummy"]:checked'
+    ) as HTMLInputElement)?.value;
+    const brasize = (document.querySelector(
+      'input[name="size"]:checked'
+    ) as HTMLInputElement)?.value;
+    const bracup = (document.querySelector(
+      'input[name="cup"]:checked'
+    ) as HTMLInputElement)?.value;
+    const hip = (document.querySelector(
+      'input[name="hip"]:checked'
+    ) as HTMLInputElement)?.value;
+    if (!(tummy && brasize && bracup && hip)) {
+      alert("모두 선택해주세요.");
+      return;
+    }
+    
+    user.Tummy = tummy;
+    user.Bra_size = brasize;
+    user.Bra_cup = bracup;
+    user.Hip = hip;
+
+    const router = useRouter();
+    
+    router.push({
+      pathname: "/signup/3",
+      query: { query: JSON.stringify(user) },
+    });
+  };
+
   return (
     <>
       <Head>
@@ -350,9 +362,9 @@ function TwoTwoF({router : {query}}) {
                 <input type="radio" name="hip" id="wide" value="wide" />
                 <label htmlFor="wide">넓음</label>
               </ButtonRow>
-              <Link href={{pathname: `/signup/3`, query : { query : JSON.stringify(user) }}}>
-                <a id="next">다음</a>
-              </Link>
+              <button id="next" onClick={handleNext}>
+                다음
+              </button>
             </Content>
           </MainMargin>
         </MainContent>

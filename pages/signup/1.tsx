@@ -2,9 +2,9 @@ import Head from "next/head";
 import Layout from "../../components/Layout";
 import styled from "styled-components";
 import Link from "next/link";
-import { useState, useEffect } from 'react';
-import { withRouter, useRouter } from 'next/router';
-import { User } from '../../lib/classes.js';
+import { useState, useEffect } from "react";
+import { withRouter, useRouter } from "next/router";
+import { User } from "../../lib/classes";
 
 const MainContent = styled.div`
   display: flex;
@@ -165,8 +165,7 @@ const Radio = styled.div`
   }
 `;
 
-function one({router : {query}}) {
-                          
+function one({ router: { query } }) {
   const [username, setUsername] = useState<String>();
   const [phone, setPhone] = useState<String>();
   const [email, setEmail] = useState<String>();
@@ -175,10 +174,10 @@ function one({router : {query}}) {
   const [passcheck, setPasscheck] = useState<String>();
   const router = useRouter();
 
-  if(typeof query.query == 'undefined'){
+  if (typeof query.query == "undefined") {
     const router = useRouter();
-    useEffect(()=>{
-      router.push('/');
+    useEffect(() => {
+      router.push("/");
     }, []);
   }
 
@@ -187,33 +186,31 @@ function one({router : {query}}) {
 
     const selectValue = document.getElementsByTagName("select");
 
-    const birthday = selectValue[0].value + selectValue[1].value + selectValue[2].value;
-    const gender = selectValue[3].value
+    const birthday =
+      selectValue[0].value + selectValue[1].value + selectValue[2].value;
+    const gender = selectValue[3].value;
     const phoneFull = selectValue[4].value + phone;
-    
-    if(!username || 
-       !phone || 
-       !email ||
-       !userID ||
-       !password ||
-       !passcheck){
-        alert('빈칸을 확인해 주세요');
-        return;
-       }
-      
-    if(selectValue[0].value == '생년(선택)' ||
-       selectValue[1].value == '월(선택)' ||
-       selectValue[2].value == '일(선택)' ||
-       selectValue[3].value == '선택') {
-        alert('빈칸을 선택해 주세요');
-        return;
-       }
 
-    if(password != passcheck){
-        alert('비밀번호가 일치하지 않습니다.');
-        return;
-    } 
-    
+    if (!username || !phone || !email || !userID || !password || !passcheck) {
+      alert("빈칸을 확인해 주세요");
+      return;
+    }
+
+    if (
+      selectValue[0].value == "생년(선택)" ||
+      selectValue[1].value == "월(선택)" ||
+      selectValue[2].value == "일(선택)" ||
+      selectValue[3].value == "선택"
+    ) {
+      alert("빈칸을 선택해 주세요");
+      return;
+    }
+
+    if (password != passcheck) {
+      alert("비밀번호가 일치하지 않습니다.");
+      return;
+    }
+
     const user = new User();
 
     user.Id = userID;
@@ -223,13 +220,11 @@ function one({router : {query}}) {
     user.Gender = gender;
     user.Phone = phoneFull;
     user.Email = email;
-    
-    console.log(user);
 
     router.push({
       pathname: "/signup/2",
-      query: { query : JSON.stringify(user) },
-    })
+      query: { query: JSON.stringify(user) },
+    });
   };
 
   return (
@@ -260,15 +255,18 @@ function one({router : {query}}) {
               <h1>회원가입</h1>
               <div className="input-box">
                 <p>이름</p>
-                <input type="text" className="one" 
-                onChange={(e) => {
-                  setUsername(e.target.value);
-                }} />
+                <input
+                  type="text"
+                  className="one"
+                  onChange={(e) => {
+                    setUsername(e.target.value);
+                  }}
+                />
               </div>
               <div className="input-box">
                 <p>나이</p>
                 <div className="three">
-                  <select id='year'>
+                  <select id="year">
                     <option>생년(선택)</option>
                     {[...Array(120).keys()].map((key) => {
                       return <option value={key + 1900}>{key + 1900}</option>;
@@ -302,25 +300,31 @@ function one({router : {query}}) {
                   <select>
                     <option>010</option>
                   </select>
-                  <input type="text" placeholder="'-'표 없이 입력해주세요" 
-                  onChange={(e) => {
-                    setPhone(e.target.value);
-                }}/>
+                  <input
+                    type="text"
+                    placeholder="'-'표 없이 입력해주세요"
+                    onChange={(e) => {
+                      setPhone(e.target.value);
+                    }}
+                  />
                 </div>
               </div>
               <div className="input-box">
                 <p>이메일</p>
-                <input type="text" className="one" 
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }} />
+                <input
+                  type="text"
+                  className="one"
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
+                />
               </div>
               <div className="input-box">
                 <p>아이디</p>
                 <input
                   type="text"
                   className="one"
-                  placeholder="6자 이상 영문, 숫자 입력 가능" 
+                  placeholder="6자 이상 영문, 숫자 입력 가능"
                   onChange={(e) => {
                     setUserId(e.target.value);
                   }}
