@@ -3,12 +3,12 @@ import Layout from "../components/Layout";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { useRouter, withRouter } from "next/router";
+import { stringify } from "querystring";
 
 const MainContent = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
   .top {
     display: flex;
     justify-content: space-between;
@@ -17,7 +17,6 @@ const MainContent = styled.div`
     font-weight: 500;
     margin-top: 5.37vh;
     color: #999999;
-
     span {
       margin-left: 5px;
       color: #999999;
@@ -41,7 +40,6 @@ const Content = styled.div`
   align-items: flex-start;
   justify-content: center;
   flex-direction: column;
-
   #url {
     margin-top: 15vh;
     width: 100%;
@@ -49,14 +47,12 @@ const Content = styled.div`
     justify-content: space-between;
     align-items: center;
     text-align: center;
-
     p {
       width: 20%;
       font-size: 20;
       font-weight: 500;
       color: #5378c6;
     }
-
     input {
       width: 60%;
       padding: 10px 5%;
@@ -65,7 +61,6 @@ const Content = styled.div`
       color: #999999;
     }
   }
-
   h1 {
     margin-top: 20vh;
     font-size: 35px;
@@ -85,7 +80,6 @@ const Content = styled.div`
     font-weight: 500;
     margin-bottom: 1vh;
   }
-
   a:hover {
     text-decoration: none;
   }
@@ -96,12 +90,10 @@ const Middle = styled.div`
   display: flex;
   flex-direction: row;
   margin-top: 20vh;
-
   h2 {
     font-size: 15px;
     font-weight: 500;
   }
-
   #left {
     width: 40%;
     display: flex;
@@ -109,16 +101,13 @@ const Middle = styled.div`
     justify-content: center;
     align-items: center;
     padding: 10% 0;
-
     div {
       width: 80%;
     }
-
     img {
       max-height: 80%;
       max-width: 80%;
     }
-
     p {
       font-size: 14px;
       font-weight: 300;
@@ -126,14 +115,12 @@ const Middle = styled.div`
       margin-top: 30px;
     }
   }
-
   #right {
     width: 60%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
     #top {
       display: flex;
       width: 100%;
@@ -155,7 +142,6 @@ const Row = styled.div`
   justify-content: space-between;
   align-items: center;
   text-align: center;
-
   &.recommended {
     #size {
       p {
@@ -166,7 +152,6 @@ const Row = styled.div`
       background-color: rgba(83, 120, 198, 0.3) !important;
     }
   }
-
   #size {
     width: calc(100% / 6) !important;
     p {
@@ -177,7 +162,6 @@ const Row = styled.div`
       padding: 15%;
     }
   }
-
   #in {
     width: calc(500% / 6);
     display: flex;
@@ -199,14 +183,12 @@ const Size = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   div {
     width: 80%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
   }
-
   #last {
     border-radius: 16px;
     border: 1px solid #999999;
@@ -217,7 +199,6 @@ const Size = styled.div`
 const Recommend = styled.div`
   width: 100%;
   margin-bottom: 20vh;
-
   div {
     width: 100%;
     display: flex;
@@ -243,7 +224,6 @@ const Card = styled.div`
     align-items: flex-start;
     width: 80%;
   }
-
   p {
     font-size: 15px;
     font-weight: 500;
@@ -265,7 +245,7 @@ function newPage({ router: { query } }) {
   const [value, setValue] = useState<any>();
   const [user, setUser] = useState<any>();
   const [body, setBody] = useState<string[]>();
-  const [recommended, setRecommended] = useState<string>("S");
+  const [recommended, setRecommended] = useState<string>();
 
   const router = useRouter();
 
@@ -298,9 +278,15 @@ function newPage({ router: { query } }) {
     }
   }, [user]);
 
+  function indexOfSmallest(list) {
+    return list.indexOf(Math.min.apply(Math, list));
+  }
+
   useEffect(() => {
     if (body) {
-      // console.log(calculateHoody(body, data));
+      var list = [...calculateHoody(body, data)];
+      const smallest = indexOfSmallest(list);
+      setRecommended(data[smallest][0].toString());
     }
   }, [body]);
 
@@ -352,7 +338,7 @@ function newPage({ router: { query } }) {
         }
       }
     }
-  }, [recommended]);
+  }, [recommended, size, value]);
 
   return (
     <>
@@ -370,7 +356,12 @@ function newPage({ router: { query } }) {
               </div>
               <Middle>
                 <div id="left">
-                  <img src="/images/test.svg" />
+                  {user && user.Gender == "여자" && (
+                    <img src="/images/test.svg" />
+                  )}
+                  {user && user.Gender == "남자" && (
+                    <img src="/images/dude.png" />
+                  )}
                   <p>Fitting Room</p>
                 </div>
                 <div id="right">
