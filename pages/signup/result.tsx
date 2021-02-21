@@ -157,18 +157,15 @@ function TwoTwo({ router: { query } }) {
   const handleNew = (e) => {
     e.preventDefault();
 
-    axios.post(`/api/signup`,
-    { user : JSON.stringify(user) })
-    .then((res) => {
-      alert('회원가입이 완료되었습니다!');
-      router.push('/');
-    }) .catch((err) => {
-      console.log(err);
-    })
-    
-    // router.push({
-    //   pathname: "/",
-    // });
+    axios
+      .post(`/api/signup`, { user: JSON.stringify(user) })
+      .then((res) => {
+        alert("회원가입이 완료되었습니다!");
+        router.push("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (

@@ -2,6 +2,7 @@ import Head from "next/head";
 import Layout from "../components/Layout";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
+import { useRouter, withRouter } from "next/router";
 
 const MainContent = styled.div`
   display: flex;
@@ -155,6 +156,17 @@ const Row = styled.div`
   align-items: center;
   text-align: center;
 
+  &.recommended {
+    #size {
+      p {
+        background-color: rgba(83, 120, 198, 0.3) !important;
+      }
+    }
+    #in {
+      background-color: rgba(83, 120, 198, 0.3) !important;
+    }
+  }
+
   #size {
     width: calc(100% / 6) !important;
     p {
@@ -245,14 +257,17 @@ const Card = styled.div`
   }
 `;
 
-export default function TwoTwo() {
+function newPage({ router: { query } }) {
   const axios = require("axios");
-  const [url, setUrl] = useState<string>();
+  const [url, setUrl] = useState<string>(query.url);
   const [category, setCategory] = useState<any>();
   const [size, setSize] = useState<any>();
   const [value, setValue] = useState<any>();
   const [user, setUser] = useState<any>();
   const [body, setBody] = useState<string[]>();
+  const [recommended, setRecommended] = useState<string>("S");
+
+  const router = useRouter();
 
   const temp = "후드 집업";
   let data = [
@@ -270,8 +285,10 @@ export default function TwoTwo() {
     }
     if (user) {
       setUser(JSON.parse(user));
+    } else {
+      alert("잘못된 접근입니다.");
+      router.push("/");
     }
-    setUrl(location.pathname.slice(1));
     fetchCategory();
   }, []);
 
@@ -280,6 +297,23 @@ export default function TwoTwo() {
       fetchBodySize();
     }
   }, [user]);
+
+  useEffect(() => {
+    if (body) {
+      // console.log(calculateHoody(body, data));
+    }
+  }, [body]);
+
+  const calculateHoody = (user, data) => {
+    var temp = [];
+    for (let i = 0; i < data.length; i++) {
+      const upper = Math.pow(user[0] - parseInt(data[i][1]), 2);
+      const shoulder = Math.pow(user[1] - parseInt(data[i][2]), 2);
+      const arm = Math.pow(user[2] - parseInt(data[i][4]), 2);
+      temp.push(upper + shoulder + arm);
+    }
+    return temp;
+  };
 
   const fetchBodySize = async () => {
     const api = `api/user/${user.Id}/size`;
@@ -308,6 +342,17 @@ export default function TwoTwo() {
     setValue(values);
     setCategory(JSON.parse(res.data.VALUES).values);
   };
+
+  useEffect(() => {
+    if (recommended) {
+      var items = document.getElementsByClassName("row");
+      for (let i = 0; i < items.length; i++) {
+        if ((items[i].firstChild as HTMLDivElement).innerText === recommended) {
+          (items[i] as HTMLDivElement).classList.add("recommended");
+        }
+      }
+    }
+  }, [recommended]);
 
   return (
     <>
@@ -342,7 +387,7 @@ export default function TwoTwo() {
                     value &&
                     size.map((key, index) => {
                       return (
-                        <Row>
+                        <Row className="row">
                           <div id="size">
                             <p>{key}</p>
                           </div>
@@ -442,3 +487,5 @@ export default function TwoTwo() {
     </>
   );
 }
+
+export default withRouter(newPage);

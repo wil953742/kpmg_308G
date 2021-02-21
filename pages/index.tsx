@@ -3,7 +3,7 @@ import Layout from "../components/Layout";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { useRouter } from "next/router";
+import { useRouter, withRouter } from "next/router";
 
 const MainContent = styled.div`
   display: flex;
@@ -221,4 +221,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default withRouter(Home);

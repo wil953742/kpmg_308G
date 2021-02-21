@@ -6,7 +6,7 @@ const handler: NextApiHandler = async (req, res) => {
   try {
     const results = await query(
       `
-      SELECT UPPER, SHOULDER, ARM, WAIST, LEG
+      SELECT UPPER, SHOULDER, ARM, WAIST, LEG, HEIGHT, WEIGHT
       FROM BODY, ACCOUNT
       WHERE ACCOUNT.ID='${id}' AND ACCOUNT.ID = BODY.ID
     `
