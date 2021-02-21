@@ -156,7 +156,6 @@ function TwoTwo({ router: { query } }) {
 
   const handleNew = (e) => {
     e.preventDefault();
-    console.log(user);
 
     axios.post(`/api/signup`,
     { user : JSON.stringify(user) })

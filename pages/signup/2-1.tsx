@@ -127,12 +127,6 @@ const NextButton = styled.button`
 function Interlim({ router: { query } }) {
   const router = useRouter();
 
-  if (typeof query.query == "undefined") {
-    useEffect(() => {
-      router.push("/");
-    }, []);
-  }
-
   const [upper, setUpper] = useState<number>();
   const [shoulder, setShoulder] = useState<number>();
   const [arm, setArm] = useState<number>();
@@ -141,14 +135,19 @@ function Interlim({ router: { query } }) {
   const [sex, setSex] = useState<string>("2-2M");
   const [user, setUser] = useState<any>();
 
+  if (typeof query.query == "undefined") {
+    useEffect(() => {
+      router.push("/");
+    }, []);
+  }
+
   useEffect(() => {
     setUser(JSON.parse(query.query));
   }, []);
 
   useEffect(() => {
-    console.log(user);
     if (user) {
-      if (user.Gender == "여자") {
+      if (user.gender == "여자") {
         setSex("2-2F");
       }
       setUpper(user.upper);
@@ -161,16 +160,21 @@ function Interlim({ router: { query } }) {
 
   const handleNext = (e) => {
     e.preventDefault();
-    user["upper"] = upper;
-    user["shoulder"] = shoulder;
-    user["arm"] = arm;
-    user["waist"] = waist;
-    user["leg"] = leg;
+    if (upper && shoulder && arm && waist && leg) {
+      user["upper"] = upper;
+      user["shoulder"] = shoulder;
+      user["arm"] = arm;
+      user["waist"] = waist;
+      user["leg"] = leg;
 
-    router.push({
-      pathname: `/signup/${sex}`,
-      query: { query: JSON.stringify(user) },
-    });
+      router.push({
+        pathname: `/signup/${sex}`,
+        query: { query: JSON.stringify(user) },
+      });
+    } else {
+      alert("값을 확인해주세요.");
+      return;
+    }
   };
 
   return (
