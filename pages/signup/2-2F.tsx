@@ -258,6 +258,8 @@ function TwoTwoF({router : {query}}) {
     user['bar_cup'] = bracup;
     user['hip'] = hip;
 
+    console.log('in 2-2f ' + tummy + brasize + bracup + hip);
+
     router.push({
       pathname: "/signup/3",
       query: { query: JSON.stringify(user)

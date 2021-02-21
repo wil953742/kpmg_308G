@@ -54,6 +54,7 @@ const handler: NextApiHandler = async (req, res) => {
         );
     } 
     else {
+      console.log('girl : ' + bra_size + bra_cup + hip + tummy)
       await query(
         `INSERT INTO DB_308G.WOMAN (Id, Bra_size, Bra_cup, Hip, Tummy)\
         VALUES ('${id}', ${bra_size}, '${bra_cup}', '${hip}', '${tummy}');`

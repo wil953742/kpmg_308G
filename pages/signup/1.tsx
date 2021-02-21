@@ -198,6 +198,15 @@ function one({ router: { query } }) {
     console.log(box.checked, box1.checked, box2.checked, box3.checked);
   };
 
+  const PasswordCheck = (inputtxt) => {
+    var passw = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/;
+    if (inputtxt.match(passw)) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   const toNext = (e) => {
     e.preventDefault();
 
@@ -209,7 +218,7 @@ function one({ router: { query } }) {
     const box1 = document.getElementById("agree_mend_1")! as HTMLInputElement;
     const box2 = document.getElementById("agree_mend_2")! as HTMLInputElement;
 
-    if (!box1.checked && box2.checked) {
+    if (!box1.checked || !box2.checked) {
       alert("약관에 동의해주세요.");
       return;
     }
@@ -231,6 +240,11 @@ function one({ router: { query } }) {
 
     if (password != passcheck) {
       alert("비밀번호가 일치하지 않습니다.");
+      return;
+    }
+
+    if (password.length < 8 || PasswordCheck(password)) {
+      alert("비밀번호를 확인해 주세요")
       return;
     }
 

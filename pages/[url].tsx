@@ -320,7 +320,7 @@ export default function TwoTwo() {
             <Content>
               <h1>SIZEYOURSELF</h1>
               <div id="url">
-                <p>지금 피팅 중인 옷</p>
+                <p>지금 피팅 중인 옷</p>
                 <input type="text" value={url} disabled />
               </div>
               <Middle>
