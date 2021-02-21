@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 
 const handler: NextApiHandler = async (req, res) => {
   const user = JSON.parse(req.body.user);
+  console.log(user);
 
   const id = user.id;
   const password = user.password;
@@ -28,36 +29,34 @@ const handler: NextApiHandler = async (req, res) => {
   const brand = user.brand;
   const vibe = user.vibe;
   const type = user.type;
-  const esg = user.esg;
-  
+  const esg = user.env;
+
   try {
-    
     await query(
-    `INSERT INTO DB_308G.ACCOUNT (Id, Password, Username, Firstname, Birthday, Gender, Phone, Email)\
+      `INSERT INTO DB_308G.ACCOUNT (Id, Password, Username, Firstname, Birthday, Gender, Phone, Email)\
      VALUES ('${id}', '${password}', '${username}', '${username}', '${birthday}', '${gender}', '${phone}', '${email}');`
     );
-      
+
     await query(
-    `INSERT INTO DB_308G.BODY (Bodykey, Id, Checkday, Height, Weight, Upper, Shoulder, Arm, Waist, Leg)\
+      `INSERT INTO DB_308G.BODY (Bodykey, Id, Checkday, Height, Weight, Upper, Shoulder, Arm, Waist, Leg)\
      VALUES (null, '${id}', null, ${height}, ${weight}, ${upper}, ${shoulder}, ${arm}, '${waist}', ${leg});`
     );
 
     const result = await query(
       `INSERT INTO DB_308G.PREFERENCE (Preferencekey, Id, Fit, Brand, Vibe, Type, Esg)\
       VALUES (null, '${id}', '${fit}', '${brand}', '${vibe}', '${type}', '${esg}');`
-    ); 
+    );
 
-    if(gender == '남자'){
+    if (gender == "남자") {
       await query(
         `INSERT INTO DB_308G.MAN (Id, Chest, Tummy)\
         VALUES ('${id}', '${chest}', '${tummy}');`
-        );
-    } 
-    else {
+      );
+    } else {
       await query(
         `INSERT INTO DB_308G.WOMAN (Id, Bra_size, Bra_cup, Hip, Tummy)\
         VALUES ('${id}', ${bra_size}, '${bra_cup}', '${hip}', '${tummy}');`
-        );
+      );
     }
 
     return res.json(result[0]);

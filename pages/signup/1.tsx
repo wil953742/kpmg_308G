@@ -4,7 +4,6 @@ import styled from "styled-components";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { withRouter, useRouter } from "next/router";
-import { User } from "../../lib/classes";
 
 const MainContent = styled.div`
   display: flex;
@@ -174,11 +173,11 @@ function one({ router: { query } }) {
   const [passcheck, setPasscheck] = useState<string>();
   const router = useRouter();
 
-  if (typeof query.query == "undefined") {
-    useEffect(() => {
+  useEffect(() => {
+    if (typeof query.query == "undefined") {
       router.push("/");
-    }, []);
-  }
+    }
+  }, []);
 
   const handleAgree = (event) => {
     event.preventDefault();
@@ -195,7 +194,6 @@ function one({ router: { query } }) {
       box2.checked = false;
       box3.checked = false;
     }
-    console.log(box.checked, box1.checked, box2.checked, box3.checked);
   };
 
   const toNext = (e) => {
@@ -209,7 +207,7 @@ function one({ router: { query } }) {
     const box1 = document.getElementById("agree_mend_1")! as HTMLInputElement;
     const box2 = document.getElementById("agree_mend_2")! as HTMLInputElement;
 
-    if (!box1.checked && box2.checked) {
+    if (!(box1.checked && box2.checked)) {
       alert("약관에 동의해주세요.");
       return;
     }
@@ -296,13 +294,13 @@ function one({ router: { query } }) {
                       return <option value={key + 1900}>{key + 1900}</option>;
                     })}
                   </select>
-                  <select>
+                  <select id="month">
                     <option>월(선택)</option>
                     {[...Array(12).keys()].map((key) => {
                       return <option value={key + 1}>{key + 1}</option>;
                     })}
                   </select>
-                  <select>
+                  <select id="day">
                     <option>일(선택)</option>
                     {[...Array(31).keys()].map((key) => {
                       return <option value={key + 1}>{key + 1}</option>;

@@ -2,8 +2,8 @@ import Head from "next/head";
 import Layout from "../../components/Layout";
 import styled from "styled-components";
 import Link from "next/link";
-import { useState, useEffect } from 'react';
-import { withRouter, useRouter } from 'next/router';
+import { useState, useEffect } from "react";
+import { withRouter, useRouter } from "next/router";
 
 const MainContent = styled.div`
   display: flex;
@@ -216,21 +216,19 @@ const DupSizeTable = styled.div`
   }
 `;
 
-function TwoTwoF({router : {query}}) {
+function TwoTwoF({ router: { query } }) {
   const [user, setUser] = useState<any>();
   const router = useRouter();
 
-  if(typeof query.query == 'undefined'){
-    useEffect(()=>{
-      router.push('/');
-    }, []);
-  }
-
-  useEffect(()=>{
-    if(user){
-      setUser(JSON.parse(query.query));
+  useEffect(() => {
+    if (typeof query.query == "undefined") {
+      router.push("/");
     }
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    setUser(JSON.parse(query.query));
+  }, []);
 
   const chestSize = ["AA", "A", "B", "C", "D", "E", "F", "G"];
 
@@ -252,16 +250,15 @@ function TwoTwoF({router : {query}}) {
       alert("모두 선택해주세요.");
       return;
     }
-    
-    user['tummy'] = tummy;
-    user['bra_size'] = brasize;
-    user['bar_cup'] = bracup;
-    user['hip'] = hip;
+
+    user["tummy"] = tummy;
+    user["bra_size"] = brasize;
+    user["bar_cup"] = bracup;
+    user["hip"] = hip;
 
     router.push({
       pathname: "/signup/3",
-      query: { query: JSON.stringify(user)
-       },
+      query: { query: JSON.stringify(user) },
     });
   };
 
@@ -304,7 +301,13 @@ function TwoTwoF({router : {query}}) {
                 <img src="/images/belly_woman.png" />
               </ImageBox>
               <ButtonRow>
-                <input type="radio" name="tummy" id="slim" value="slim" onClick={(e)=>{}}/>
+                <input
+                  type="radio"
+                  name="tummy"
+                  id="slim"
+                  value="slim"
+                  onClick={(e) => {}}
+                />
                 <label htmlFor="slim">마름</label>
                 <input
                   type="radio"

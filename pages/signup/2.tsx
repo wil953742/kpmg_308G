@@ -221,12 +221,10 @@ function two({ router: { query } }) {
   const [nodeList, setNodeList] = useState<circleData[]>([]);
   const [lineList, setLineList] = useState<lineData[]>([]);
   const [poseData, setPoseData] = useState<any>();
-  const [ratio, setRatio] = useState<number>();
   const [result, setResult] = useState<number[]>();
 
   const [imgLoad, setImgLoad] = useState<boolean>(false);
   const [img, setImg] = useState<string>();
-  const [canvas, setCanvas] = useState<HTMLCanvasElement>();
   const [loading, setLoading] = useState<boolean>(false);
 
   const [height, setHeight] = useState<number>();
@@ -236,11 +234,11 @@ function two({ router: { query } }) {
 
   const [calculated, setCalculated] = useState<boolean>(false);
 
-  if (typeof query.query == "undefined") {
-    useEffect(() => {
+  useEffect(() => {
+    if (typeof query.query == "undefined") {
       router.push("/");
-    }, []);
-  }
+    }
+  }, []);
 
   const myRef = useRef<SVGSVGElement>(null);
   var identifiables = new WeakMap<Object, number>();
@@ -361,7 +359,7 @@ function two({ router: { query } }) {
     )! as HTMLSelectElement).value;
     if (!height || !weight) {
       alert("모든 값을 입력해주세요.");
-      return null;
+      return;
     }
     var h = height;
     var w = weight;
@@ -374,11 +372,11 @@ function two({ router: { query } }) {
     event.preventDefault();
     const values = checkInput();
     if (values) {
-      console.log(values);
+      var result: number[] = [];
+      nextPage(result);
+    } else {
+      return;
     }
-
-    var result: number[] = [];
-    nextPage(result);
   };
 
   const handleNext = (event) => {
