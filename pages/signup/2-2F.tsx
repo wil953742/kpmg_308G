@@ -253,10 +253,10 @@ function TwoTwoF({router : {query}}) {
       return;
     }
     
-    user.Tummy = tummy;
-    user.Bra_size = brasize;
-    user.Bra_cup = bracup;
-    user.Hip = hip;
+    user['tummy'] = tummy;
+    user['bra_size'] = brasize;
+    user['bar_cup'] = bracup;
+    user['hip'] = hip;
 
     router.push({
       pathname: "/signup/3",

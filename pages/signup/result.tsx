@@ -2,7 +2,7 @@ import Head from "next/head";
 import Layout from "../../components/Layout";
 import styled from "styled-components";
 import Link from "next/link";
-import { Router, useRouter, withRouter } from "next/router";
+import { useRouter, withRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 const MainContent = styled.div`
@@ -154,15 +154,18 @@ function TwoTwo({ router: { query } }) {
     }
   }, [user]);
 
-  const handleNew = async (e) => {
+  const handleNew = (e) => {
     e.preventDefault();
     console.log(user);
 
-    const res = await axios.post(`/api/signup`,
-    { user : JSON.stringify(user) });
-    
-    
-    
+    axios.post(`/api/signup`,
+    { user : JSON.stringify(user) })
+    .then((res) => {
+      alert('회원가입이 완료되었습니다!');
+      router.push('/');
+    }) .catch((err) => {
+      console.log(err);
+    })
     
     // router.push({
     //   pathname: "/",
