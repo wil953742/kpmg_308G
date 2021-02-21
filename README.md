@@ -1,32 +1,51 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Sizeyourself
 
-## Getting Started
+Hi there! We are team 308G :)
 
-First, run the development server:
+How is your fashion shopping going during this disastrous pandemic?
+Let me guess. Largely grounded at home, sharing the pain of the world; Perhaps shifting through some handful of friendly online malls (and meh, literally buying under 20% of what had caught your attention); Quickly losing interest in beautifying beneath the necessary Zoom-zone; and even with purchases made...
+**Yes we know: half should go - for its size won't fit you**
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+Life is a pain, when it comes to shopping online, even with its abundance and effieciency
+BUT we figured it's an easily curable one,
+should you try our virtual fitting solution, **Sizeyourself**.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+Let me take your through on how you can use it.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+# A Friendly Guide
+## 1. Take a picture of yourself
+We mean, we need your **one full body shot image**.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Easy.
 
-## Learn More
+## 2. Log in to myclothes.fit
+(*FYI, we take your data privacy very seriously, so no worries)
 
-To learn more about Next.js, take a look at the following resources:
+Done. Now your only a tickle away -
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 3. Upload your picture
+Answer a few questions on your style and fit and swag, then...
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Tada- your personal 2D avatar is ready
 
-## Deploy on Vercel
+**It's yours**. It will shop with you, for you, and for the best of luck, provide you with an ever safe and efficient virtual fitting experience - anytime, anywhere!
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**On our web, or on our friends' malls,
+Try on clothes as you may and recieve size fit recommendations!**
+We'll get smarter and quickly learn more about your size and fashion, eventually to become your smartest shopping partner.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+# Why Sizeyourself?
+
+Fashion retail is in quite a heavy misery these days, and we want to help them leverage the effects of Covid19 to reinvigorate into a startling virtual-easy environment. (Shh... *earn more money together*)
+
+## Sizeyourself Solution
+
+**We offer 2D virtual fitting and AI-based size recommendations.**
+We are cheaper&faster than our fellow VDR (aka. Virtual Dressing Room) ancestors who would usually try 3D scan you, etc.
+
+
+# 308G
+
+Ooops, forgot to intoduce ourselves.
+
+308 in HTTP code means you've been permanently redirected, so combining it with a letter G for Generation, we meant to join forces in taking you to the better post-Covid19, for good.
