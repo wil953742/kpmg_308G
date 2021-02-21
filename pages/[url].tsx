@@ -417,7 +417,7 @@ function newPage({ router: { query } }) {
                     </div>
                     <div id="last">
                       {body &&
-                        body.map((key) => {
+                        body.slice(0, -2).map((key) => {
                           return (
                             <div>
                               <p>{key}</p>
