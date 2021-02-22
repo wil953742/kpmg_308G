@@ -258,6 +258,14 @@ function newPage({ router: { query } }) {
     ["XXL", "71.5", "53", "62", "66"],
   ];
 
+  const fetchUrlInfo = async () => {
+    await axios
+      .post(
+        `http://88.99.13.210:5000/?url="https://store.musinsa.com/app/goods/640839"&target="musinsa"`
+      )
+      .then((res) => console.log(res));
+  };
+
   useEffect(() => {
     let user = localStorage.getItem("user");
     if (!user) {
@@ -270,6 +278,7 @@ function newPage({ router: { query } }) {
       router.push("/");
     }
     fetchCategory();
+    fetchUrlInfo();
   }, []);
 
   useEffect(() => {

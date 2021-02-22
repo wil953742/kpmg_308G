@@ -2,10 +2,12 @@ from flask import Flask, make_response
 from flask_restful import Resource, Api, reqparse
 from flask_cors import CORS
 from requests import crawler
+import json
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 api = Api(app)
+
 
 class crawl_api(Resource):
     def __init__(self):
@@ -22,15 +24,17 @@ class crawl_api(Resource):
             req_parser = reqparse.RequestParser()
             req_parser.add_argument('url', type=str)
             req_parser.add_argument('target', type=str)
+            req_parser.add_argument('body', type=str)
             args = req_parser.parse_args()
 
+            _body = json.parse(args['body'])
             _url = args['url']
             print(_url)
             _target = args['target']
             print(_target)
 
             # Shopping Mall Option to be added in the future
-            result, err = self.crawl_tool.crawl(_url)
+            result, err = self.crawl_tool.crawl(_url, _body)
 
             if err is None:
                 response = make_response(result)
