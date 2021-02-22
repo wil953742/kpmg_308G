@@ -46,6 +46,6 @@ We are cheaper&faster than our fellow VDR (aka. Virtual Dressing Room) ancestors
 
 # 308G
 
-Ooops, forgot to intoduce ourselves.
+Ooops, forgot to introduce ourselves.
 
 308 in HTTP code means you've been permanently redirected, so combining it with a letter G for Generation, we meant to join forces in taking you to the better post-Covid19, for good.
